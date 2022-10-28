@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@mui/material';
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { imagePath } from 'src/constants/ImagePath';
 import { BaseContextProps } from 'src/global.config';
 
@@ -12,7 +12,7 @@ export interface LayoutContextProps {
 
 export const layoutConfig = {
     sidebar: {
-        fullWidth: '280px',
+        fullWidth: '260px',
         shortWidth: '80px',
         zIndex: 100,
     },
@@ -48,6 +48,14 @@ export function LayoutProvider({ children }: BaseContextProps) {
             setSidebarWidth(layoutConfig.sidebar.fullWidth);
         }
     }, [breakPointLayout, sidebarWidth]);
+
+    useEffect(() => {
+        if (breakPointLayout) {
+            setSidebarWidth('0px');
+        } else {
+            setSidebarWidth(layoutConfig.sidebar.fullWidth);
+        }
+    }, [breakPointLayout]);
 
     return <LayoutContext.Provider value={{ sidebarWidth, logo, toggleSidebar, breakPointLayout }}>{children}</LayoutContext.Provider>;
 }

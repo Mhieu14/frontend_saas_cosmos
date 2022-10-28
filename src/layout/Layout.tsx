@@ -1,13 +1,14 @@
-import { Box, IconButton, styled } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { SnackbarKey, SnackbarProvider } from 'notistack';
 import React from 'react';
 import { ThemeCustomProvider } from 'src/contexts/theme-context';
 import { WalletProvider } from 'src/contexts/wallet-context/wallet-context';
 import { Clear } from '@mui/icons-material';
-import Header from './content/header/Header';
-import { LayoutProvider, useLayoutContext } from 'src/contexts/layout-context/layout-context';
+import { LayoutProvider } from 'src/contexts/layout-context/layout-context';
 import Sidebar from './sidebar/Sidebar';
 import Content from './content/Content';
+import { Provider } from 'react-redux';
+import store from 'src/redux-toolkit/stores';
 
 const notistackRef = React.createRef<SnackbarProvider>();
 const onClickDismiss = (key: SnackbarKey) => () => {
@@ -29,8 +30,10 @@ export default function Layout() {
             >
                 <ThemeCustomProvider>
                     <WalletProvider>
-                        <Sidebar />
-                        <Content />
+                        <Provider store={store}>
+                            <Sidebar />
+                            <Content />
+                        </Provider>
                     </WalletProvider>
                 </ThemeCustomProvider>
             </SnackbarProvider>
