@@ -7,7 +7,7 @@ import { getThemeConfig, getThemedComponent, THEME_MODE } from '../../themes/the
 
 export interface ThemeContextProps {
     toggleThemeMode: () => void;
-    mode?: string;
+    mode?: THEME_MODE;
 }
 
 const ThemeContext = createContext<ThemeContextProps>({} as ThemeContextProps);

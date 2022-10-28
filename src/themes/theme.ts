@@ -19,6 +19,7 @@ declare module '@mui/material/styles/createPalette' {
         paper: string;
         primary: string;
         secondary: string;
+        divider: string;
     }
 
     interface Palette {
@@ -83,16 +84,17 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
         palette: {
             mode,
             background: {
-                paper: getColor('#021C39', '#FFFFFF'),
-                default: getColor('#031527', '#F5F7FA'),
+                paper: getColor('#232323', '#FFFFFF'),
+                default: getColor('#000000', '#f4f6f8'),
                 primary: getColor('#031527', '#FFFFFF'),
                 secondary: getColor('#07111C', '#FFFFFF'),
+                divider: getColor('#3a3a3a', '#dfdfdf'),
             },
             gradient: {
                 main: 'linear-gradient(100.42deg, #2C85EE 16.07%, #4FB5FF 79.2%)',
             },
             primary: {
-                main: '#1C8CF3',
+                main: '#2f6dbf',
                 light: '#25A0E226',
             },
             secondary: {
@@ -117,10 +119,8 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
                 light: '#F0654226',
             },
             text: {
-                // primary: getColor('#FFFFFF', '#566474'),
                 primary: getColor('#FFFFFF', '#131C23'),
-                secondary: getColor('#FFFFFFA6', '#566474CC'),
-                // disabled: getColor('', '')
+                secondary: getColor('#FFFFFFA6', '#a1a1a1'),
             },
             action: {
                 selected: getColor('#021C39', '#E6EBF4'),
@@ -182,18 +182,18 @@ export function getThemedComponent(theme: Theme): ThemeOptions {
                 styleOverrides: {
                     root: {
                         textTransform: 'capitalize',
-                        borderRadius: 6,
+                        borderRadius: 8,
                     },
                     sizeMedium: {
                         ...theme.typography.button,
                         lineHeight: 1,
-                        padding: '8px 16px',
+                        padding: '9px 16px',
                     },
                     sizeLarge: {
-                        padding: '10px 22px',
+                        padding: '12px 22px',
                     },
                     sizeSmall: {
-                        padding: '4px 10px',
+                        padding: '6px 10px',
                     },
                     containedSecondary: {
                         backgroundColor: theme.palette.secondary.dark,
