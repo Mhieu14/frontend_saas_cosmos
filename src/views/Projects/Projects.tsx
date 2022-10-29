@@ -8,36 +8,43 @@ export default function Projects() {
     const { openModal } = useModalContext();
     const fakeData: CardProjectProps[] = [
         {
+            id: 'project1',
             name: 'Project 1',
             desc: 'Oraichain validator to get reward.',
             nodeNumber: 1,
         },
         {
+            id: 'project2',
             name: 'Project 2',
             desc: 'Oraichain validator to get reward.',
             nodeNumber: 3,
         },
         {
+            id: 'project3',
             name: 'Project 3',
             desc: 'Oraichain validator to get reward.',
             nodeNumber: 4,
         },
         {
+            id: 'project4',
             name: 'Project 4',
             desc: 'Oraichain validator to get reward.',
             nodeNumber: 2,
         },
         {
+            id: 'project5',
             name: 'Project 5',
             desc: 'Oraichain validator to get reward.',
             nodeNumber: 3,
         },
         {
+            id: 'project6',
             name: 'Project 6',
             desc: 'Oraichain validator to get reward.',
             nodeNumber: 1,
         },
         {
+            id: 'project7',
             name: 'Project 7',
             desc: 'Oraichain validator to get reward.',
             nodeNumber: 1,

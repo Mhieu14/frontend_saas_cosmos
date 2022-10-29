@@ -1,10 +1,12 @@
 import { Box, Button, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { BoxWrapper } from 'src/common/BoxWrapper';
 
 export type CardProjectProps = {
     name: string;
     desc: string;
     nodeNumber: number | string;
+    id: string;
 };
 
 export default function CardProject(props: { data: CardProjectProps; index: number }) {
@@ -27,9 +29,11 @@ export default function CardProject(props: { data: CardProjectProps; index: numb
                 {index + 1}
             </Box>
             <Box>
-                <Typography variant="h5" color="text.primary">
-                    {data.name}
-                </Typography>
+                <Link to={`/projects/${data.id}`} style={{ textDecoration: 'none' }}>
+                    <Typography variant="h5" color="text.primary">
+                        {data.name}
+                    </Typography>
+                </Link>
                 <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
                     {data.desc}
                 </Typography>

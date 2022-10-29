@@ -83,7 +83,7 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
         },
         shadows: [
             'none',
-            getColor('0px 0px 10px -7px #e7e7e7', '0px 0px 10px -7px #070707'),
+            getColor('none', '0px 0px 10px -7px #070707'),
             getColor('0px 0px 10px -2px #9f9f9f', '0px 0px 10px -2px #070707'),
             '',
             '',
@@ -112,7 +112,7 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
             mode,
             background: {
                 paper: getColor('#232323', '#FFFFFF'),
-                default: getColor('#000000', '#f4f6f8'),
+                default: getColor('#0d0d0d', '#f4f6f8'),
                 primary: getColor('#031527', '#FFFFFF'),
                 secondary: getColor('#07111C', '#FFFFFF'),
                 divider: getColor('#3a3a3a', '#dfdfdf'),
@@ -161,7 +161,7 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
             h3: buildVariant(500, 30, 35.16),
             h4: buildVariant(700, 20, 23.44, 0.25),
             h5: buildVariant(500, 20, 23.44, 0.15),
-            h6: buildVariant(400, 20, 23.44),
+            h6: buildVariant(500, 18, 21.44),
             body1: buildVariant(400, 16, 18.75, 0.15),
             body2: buildVariant(300, 16, 18.75, 0.15),
             body3: buildVariant(400, 14, 18.75, 0.1),
@@ -298,6 +298,7 @@ export function getThemedComponent(theme: Theme): ThemeOptions {
                 styleOverrides: {
                     root: {
                         padding: theme.spacing(2.5),
+                        background: theme.palette.background.secondary,
                         // paddingTop: `${theme.spacing(2.5)} !important`, // prevent override
                     },
                 },

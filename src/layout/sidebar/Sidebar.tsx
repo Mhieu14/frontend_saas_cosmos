@@ -41,7 +41,7 @@ export default function Sidebar() {
                                     placeItems: 'center',
                                     overflow: 'hidden',
                                     color: checkActive ? 'primary.main' : 'text.secondary',
-                                    '&:hover': { bgcolor: 'primary.light' },
+                                    '&:hover': { bgcolor: 'primary.light', color: 'primary.main' },
                                     position: 'relative',
                                     '&:before': {
                                         position: 'absolute',
@@ -60,7 +60,7 @@ export default function Sidebar() {
                                 <Tooltip title={isFullSidebar ? '' : <b>{item.title}</b>} placement="right">
                                     <Box sx={{ minWidth: layoutConfig.sidebar.shortWidth, height: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{item.icon}</Box>
                                 </Tooltip>
-                                <Box sx={{ display: isFullSidebar ? 'block' : 'none', fontWeight: '600' }}>{item.title}</Box>
+                                <Box sx={{ display: isFullSidebar ? 'block' : 'none', fontWeight: '600', transition: 'color 0.3s' }}>{item.title}</Box>
                             </Box>
                         </Link>
                     );
