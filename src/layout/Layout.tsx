@@ -9,6 +9,8 @@ import Sidebar from './sidebar/Sidebar';
 import Content from './content/Content';
 import { Provider } from 'react-redux';
 import store from 'src/redux-toolkit/stores';
+import { ModalProvider } from 'src/contexts/modal-context';
+import ModalCustom from 'src/common/ModalCustom';
 
 const notistackRef = React.createRef<SnackbarProvider>();
 const onClickDismiss = (key: SnackbarKey) => () => {
@@ -30,10 +32,13 @@ export default function Layout() {
             >
                 <ThemeCustomProvider>
                     <WalletProvider>
-                        <Provider store={store}>
-                            <Sidebar />
-                            <Content />
-                        </Provider>
+                        <ModalProvider>
+                            <Provider store={store}>
+                                <Sidebar />
+                                <Content />
+                                <ModalCustom />
+                            </Provider>
+                        </ModalProvider>
                     </WalletProvider>
                 </ThemeCustomProvider>
             </SnackbarProvider>

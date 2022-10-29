@@ -81,6 +81,33 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
             keys: ['xs', 'xsm', 'sm', 'md', 'lg', 'xl', 'xxl'],
             values: { xs: 0, xsm: 600, sm: 760, md: 960, lg: 1280, xl: 1440, xxl: 1800 },
         },
+        shadows: [
+            'none',
+            getColor('0px 0px 10px -7px #e7e7e7', '0px 0px 10px -7px #070707'),
+            getColor('0px 0px 10px -2px #9f9f9f', '0px 0px 10px -2px #070707'),
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+        ],
         palette: {
             mode,
             background: {
@@ -106,10 +133,10 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
                 main: '#1C8CF3',
                 light: '#25A0E226',
             },
-            success: {
-                main: '#03BD9D',
-                light: '#00BD9026',
-            },
+            // success: {
+            // main: '#2bd180',
+            // light: '#2bd18226',
+            // },
             warning: {
                 main: '#FFBC0A',
                 light: '#FFBC0A26',
@@ -119,7 +146,7 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
                 light: '#F0654226',
             },
             text: {
-                primary: getColor('#FFFFFF', '#131C23'),
+                primary: getColor('#e7e7e7', '#131C23'),
                 secondary: getColor('#FFFFFFA6', '#a1a1a1'),
             },
             action: {
@@ -141,7 +168,7 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
             subtitle1: buildVariant(700, 16, 18.75, 0.15),
             subtitle2: buildVariant(500, 16, 18.75, 0.15),
             button: {
-                ...buildVariant(500, 14, 16.41, 0.15),
+                ...buildVariant(500, 15, 15, 0.15),
                 textTransform: 'none',
             },
         },
@@ -279,7 +306,7 @@ export function getThemedComponent(theme: Theme): ThemeOptions {
                 styleOverrides: {
                     root: {
                         padding: theme.spacing(2, 2.5),
-                        backgroundColor: theme.palette.mode === 'dark' ? '#00244D' : '#E6EBF4',
+                        backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary.main : '#E6EBF4',
                         '&.MuiDialogTitle-root+.MuiDialogContent-root': {
                             paddingTop: theme.spacing(2.5),
                         },
@@ -300,20 +327,20 @@ export function getThemedComponent(theme: Theme): ThemeOptions {
                     tooltip: {
                         ...theme.typography.body3,
                         boxShadow:
-                            theme.palette.mode === 'light' ? 'rgb(0 0 0 / 20%) 0px 0px 2px, rgb(0 0 0 / 10%) 0px 2px 10px' : 'rgb(255 255 255 / 20%) 0px 0px 2px, rgb(185 185 185 / 10%) 0px 2px 10px',
-                        backgroundColor: theme.palette.background.default,
+                            theme.palette.mode === 'dark' ? 'rgb(0 0 0 / 20%) 0px 0px 2px, rgb(0 0 0 / 10%) 0px 2px 10px' : 'rgb(255 255 255 / 20%) 0px 0px 2px, rgb(185 185 185 / 10%) 0px 2px 10px',
+                        backgroundColor: theme.palette.text.primary,
                         padding: theme.spacing(1.5, 2),
                         maxWidth: 400,
-                        color: theme.palette.mode === 'dark' ? '#fff' : '#000',
+                        color: theme.palette.mode === 'light' ? '#fff' : '#000',
                     },
                     arrow: {
                         '&:before': {
                             boxShadow:
-                                theme.palette.mode === 'light'
+                                theme.palette.mode === 'dark'
                                     ? 'rgb(0 0 0 / 20%) 0px 0px 2px, rgb(0 0 0 / 10%) 0px 2px 10px'
                                     : 'rgb(255 255 255 / 20%) 0px 0px 2px, rgb(185 185 185 / 10%) 0px 2px 10px',
                         },
-                        color: theme.palette.background.default,
+                        color: theme.palette.text.primary,
                     },
                 },
             },
