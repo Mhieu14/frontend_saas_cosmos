@@ -305,7 +305,7 @@ export function getThemedComponent(theme: Theme): ThemeOptions {
                 styleOverrides: {
                     root: {
                         padding: theme.spacing(2.5),
-                        background: theme.palette.background.secondary,
+                        background: theme.palette.background.default,
                         // paddingTop: `${theme.spacing(2.5)} !important`, // prevent override
                     },
                 },

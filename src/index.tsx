@@ -1,5 +1,7 @@
+import { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import LoadingPage from './common/LoadingPage/LoadingPage';
 
 import reportWebVitals from './reportWebVitals';
 import RouterUrl from './routes';
@@ -7,7 +9,9 @@ import RouterUrl from './routes';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <BrowserRouter>
-        <RouterUrl />
+        <Suspense fallback={<LoadingPage sx={{ position: 'absolute', top: 0, left: 0 }} />}>
+            <RouterUrl />
+        </Suspense>
     </BrowserRouter>
 );
 

@@ -35,6 +35,8 @@ export function WalletProvider({ children }: BaseContextProps) {
             const accounts = await offlineSigner?.getAccounts();
             console.log(accounts);
             setAddress(accounts ? accounts[0].address : '');
+            const data = await window.keplr?.signDirect(chainId, accounts ? accounts[0].address : '', { chainId: chainId });
+            console.log(data);
         } catch (err) {
             console.log(err);
             setError(err as Error);
