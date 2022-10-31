@@ -1,28 +1,32 @@
 import { Box, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { TableRow } from 'src/common/Table/TableRow';
 
-type Props = {};
+type Props = {
+    projectId: number | string;
+};
 
-export default function NodeRow({}: Props) {
+export default function NodeRow(props: Props) {
+    const navigate = useNavigate();
     return (
-        <TableRow sx={{ mt: 2 }}>
+        <TableRow sx={{ mt: 2 }} onClick={() => navigate(`/projects/${props.projectId}/nodeid_4564561`)}>
             <Grid item xs={2}>
-                Node name
+                Node 1
             </Grid>
             <Grid item xs={2}>
-                Network
+                Oraichain mainnet
             </Grid>
             <Grid item xs={2}>
-                Status
+                Running
             </Grid>
             <Grid item xs={2}>
-                Mode
+                Full
             </Grid>
             <Grid item xs={2}>
-                Hosting
+                Digital Ocean
             </Grid>
             <Grid item xs={2}>
-                Date created
+                20/10/2022
             </Grid>
         </TableRow>
     );

@@ -129,10 +129,10 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
                 dark: getColor('#293C4E', '#D7DFEC'),
                 light: getColor('#ABCAFE', '#566474'),
             },
-            info: {
-                main: '#1C8CF3',
-                light: '#25A0E226',
-            },
+            // info: {
+            //     main: '#1C8CF3',
+            //     light: '#25A0E226',
+            // },
             // success: {
             // main: '#2bd180',
             // light: '#2bd18226',
@@ -199,6 +199,13 @@ export function getThemedComponent(theme: Theme): ThemeOptions {
                 styleOverrides: {
                     root: {
                         backdropFilter: 'blur(3px)',
+                    },
+                },
+            },
+            MuiTextField: {
+                styleOverrides: {
+                    root: {
+                        display: 'block',
                     },
                 },
             },
@@ -436,6 +443,15 @@ export function getThemedComponent(theme: Theme): ThemeOptions {
                     root: {
                         '&.Mui-selected': {
                             boxShadow: '0px 0px 10px 1px rgba(196, 196, 196, 0.5)',
+                        },
+                    },
+                },
+            },
+            MuiAlert: {
+                styleOverrides: {
+                    root: {
+                        '& .MuiAlert-message': {
+                            flexGrow: 1,
                         },
                     },
                 },

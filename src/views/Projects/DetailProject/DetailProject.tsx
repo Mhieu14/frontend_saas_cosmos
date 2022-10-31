@@ -50,7 +50,7 @@ export default function DetailProject() {
                     </Grid>
                 </TableHeader>
                 <Divider sx={{ bgcolor: 'background.divider', opacity: '0.7', mt: 1 }} />
-                <NodeRow />
+                <NodeRow projectId={projectId || 'unknow'} />
             </Table>
         </Box>
     );

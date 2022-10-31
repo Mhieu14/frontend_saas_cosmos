@@ -17,6 +17,7 @@ export const TableRow = styled(MyGrid)(({ theme, spacing = spacingDefault }) => 
     marginLeft: theme.spacing(-Number(spacing) / 2),
     marginRight: theme.spacing(-Number(spacing) / 2),
     transition: 'background 0.3s',
+    cursor: 'pointer',
     '&:hover': {
         background: theme.palette.primary.light,
     },
