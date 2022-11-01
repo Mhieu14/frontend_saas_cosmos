@@ -1,11 +1,17 @@
 import { Add } from '@mui/icons-material';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { useModalContext } from 'src/contexts/modal-context';
+import useNotifier from 'src/hooks/useNotifier';
+import { useUserSlice } from 'src/redux-toolkit/slice/userSlice/userSlice';
+import { useAppDispatch } from 'src/redux-toolkit/stores';
 import CardProject, { CardProjectProps } from './CardProject/CardProject';
 import ModalCreateProject from './ModalCreateProject/ModalCreateProject';
 
 export default function Projects() {
     const { openModal } = useModalContext();
+    const { action } = useUserSlice();
+    const notify = useNotifier();
+    const dispatch = useAppDispatch();
     const fakeData: CardProjectProps[] = [
         {
             id: 'project1',
@@ -70,6 +76,7 @@ export default function Projects() {
                     })}
                 </Grid>
             </Box>
+            {/* <button onClick={() => dispatch(action.testGetData(notify))}>click</button> */}
         </Box>
     );
 }
