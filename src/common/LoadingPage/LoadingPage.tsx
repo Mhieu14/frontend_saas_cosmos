@@ -43,7 +43,7 @@ const LoadingView = styled(Box)(({ theme }) => ({
                 boxShadow: '0 0 0 5px #24ecff33 , 0 0 0 10px #24ecff22, 0 0 0 20px #24ecff11, 0 0 20px #24ecff, 0 0 50px #24ecff',
             },
 
-            '&:nth-child(2)': {
+            '&:nth-of-type(2)': {
                 animation: 'animate2 1s linear infinite',
                 animationDelay: '-0.25s',
                 borderTop: '4px solid transparent',
@@ -61,7 +61,7 @@ const LoadingView = styled(Box)(({ theme }) => ({
                     boxShadow: '0 0 0 5px #93ff2d33 , 0 0 0 10px #93ff2d22, 0 0 0 20px #93ff2d11, 0 0 20px #93ff2d, 0 0 50px #93ff2d',
                 },
             },
-            '&:nth-child(3)': {
+            '&:nth-of-type(3)': {
                 animation: 'animate2 1s linear infinite',
                 animationDelay: '-0.75s',
                 position: 'absolute',
