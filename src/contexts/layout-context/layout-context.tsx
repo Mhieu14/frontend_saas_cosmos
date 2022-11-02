@@ -37,7 +37,7 @@ export function LayoutProvider({ children }: BaseContextProps) {
         }
     }, [sidebarWidth]);
 
-    const toggleSidebar = useCallback(() => {
+    const toggleSidebar = () => {
         if (sidebarWidth === layoutConfig.sidebar.fullWidth) {
             if (breakPointLayout) {
                 setSidebarWidth('0px');
@@ -47,7 +47,7 @@ export function LayoutProvider({ children }: BaseContextProps) {
         } else {
             setSidebarWidth(layoutConfig.sidebar.fullWidth);
         }
-    }, [breakPointLayout, sidebarWidth]);
+    };
 
     useEffect(() => {
         if (breakPointLayout) {

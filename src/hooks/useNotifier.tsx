@@ -59,3 +59,10 @@ export default function useNotifier() {
         notifyWarn,
     };
 }
+
+export interface NotifyFunctionInferface {
+    notifyError: (msg: string) => void;
+    notifyInfo: (msg: string) => void;
+    notifySuccess: (msg: string) => void;
+    notifyWarn: (msg: string) => void;
+}

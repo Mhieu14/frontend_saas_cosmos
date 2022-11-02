@@ -2,7 +2,6 @@ import { IconButton } from '@mui/material';
 import { SnackbarKey, SnackbarProvider } from 'notistack';
 import React from 'react';
 import { ThemeCustomProvider } from 'src/contexts/theme-context';
-import { WalletProvider } from 'src/contexts/wallet-context/wallet-context';
 import { Clear } from '@mui/icons-material';
 import { LayoutProvider } from 'src/contexts/layout-context/layout-context';
 import Sidebar from './sidebar/Sidebar';
@@ -31,15 +30,13 @@ export default function Layout() {
                 )}
             >
                 <ThemeCustomProvider>
-                    <WalletProvider>
-                        <ModalProvider>
-                            <Provider store={store}>
-                                <Sidebar />
-                                <Content />
-                                <ModalCustom />
-                            </Provider>
-                        </ModalProvider>
-                    </WalletProvider>
+                    <ModalProvider>
+                        <Provider store={store}>
+                            <Sidebar />
+                            <Content />
+                            <ModalCustom />
+                        </Provider>
+                    </ModalProvider>
                 </ThemeCustomProvider>
             </SnackbarProvider>
         </LayoutProvider>

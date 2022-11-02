@@ -1,15 +1,17 @@
+import { ChainInfo } from '@keplr-wallet/types';
 import { Add } from '@mui/icons-material';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { useModalContext } from 'src/contexts/modal-context';
 import useNotifier from 'src/hooks/useNotifier';
 import { useUserSlice } from 'src/redux-toolkit/slice/userSlice/userSlice';
+import { useWalletSlice } from 'src/redux-toolkit/slice/walletSilce/walletSlice';
 import { useAppDispatch } from 'src/redux-toolkit/stores';
 import CardProject, { CardProjectProps } from './CardProject/CardProject';
 import ModalCreateProject from './ModalCreateProject/ModalCreateProject';
 
 export default function Projects() {
     const { openModal } = useModalContext();
-    const { action } = useUserSlice();
+    const { action } = useWalletSlice();
     const notify = useNotifier();
     const dispatch = useAppDispatch();
     const fakeData: CardProjectProps[] = [
@@ -76,7 +78,19 @@ export default function Projects() {
                     })}
                 </Grid>
             </Box>
-            {/* <button onClick={() => dispatch(action.testGetData(notify))}>click</button> */}
+            <button
+                onClick={() =>
+                    dispatch(
+                        action.sendDelegate({
+                            amount: 1000000,
+                            notifier: notify,
+                            validatorAddress: 'oraivaloper18hr8jggl3xnrutfujy2jwpeu0l76azprkxn29v',
+                        })
+                    )
+                }
+            >
+                click
+            </button>
         </Box>
     );
 }
