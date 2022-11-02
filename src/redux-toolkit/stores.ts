@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
-import { rootReducer } from './rootReducer';
+import { rootReducer, RootState } from './rootReducer';
 import { useDispatch } from 'react-redux';
 
 const middleware = [thunk];
@@ -13,5 +13,10 @@ const store = configureStore({
 
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch = () => useDispatch<AppDispatch>();
+
+export interface BaseThunkApiProps {
+    dispatch: AppDispatch;
+    state: RootState;
+}
 
 export default store;
