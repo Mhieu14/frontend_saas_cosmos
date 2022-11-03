@@ -91,6 +91,7 @@ export default function Projects() {
             >
                 click
             </button>
+            <button onClick={() => dispatch(action.signUserLogin({ notifier: notify }))}>click2</button>
         </Box>
     );
 }
