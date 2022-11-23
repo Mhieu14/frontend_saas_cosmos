@@ -18,7 +18,7 @@ export default function CardProject(props: { data: CardProjectProps; index: numb
                 position: 'relative',
                 bgcolor: 'background.paper',
                 transition: '0.3s',
-                boxShadow: theme.shadows[1],
+                boxShadow: theme.shadows[3],
                 ':hover': { boxShadow: theme.shadows[2], '& .indexProject': { top: 16, opacity: 0.2 } },
             })}
         >

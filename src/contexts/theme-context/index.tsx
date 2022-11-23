@@ -8,6 +8,10 @@ import { getThemeConfig, getThemedComponent, THEME_MODE } from '../../themes/the
 export interface ThemeContextProps {
     toggleThemeMode: () => void;
     mode?: THEME_MODE;
+    mobilePoint: boolean;
+    ipadPoint: boolean;
+    smallDesktop: boolean;
+    desktopPoint: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextProps>({} as ThemeContextProps);
@@ -36,8 +40,12 @@ export function ThemeCustomProvider({ children }: BaseContextProps) {
         return responsiveFontSizes(deepmerge(_t, getThemedComponent(_t)));
     }, [mode]);
 
+    const mobilePoint = useMediaQuery(theme.breakpoints.down('xsm'));
+    const ipadPoint = useMediaQuery(theme.breakpoints.between('xsm', 'md'));
+    const smallDesktop = useMediaQuery(theme.breakpoints.between('md', 'lg'));
+    const desktopPoint = useMediaQuery(theme.breakpoints.up('lg'));
     return (
-        <ThemeContext.Provider value={{ toggleThemeMode, mode }}>
+        <ThemeContext.Provider value={{ toggleThemeMode, mode, mobilePoint, ipadPoint, smallDesktop, desktopPoint }}>
             <ThemeProvider theme={theme}>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />

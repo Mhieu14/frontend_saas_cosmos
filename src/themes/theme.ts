@@ -84,9 +84,9 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
         shadows: [
             'none',
             getColor('none', '0px 0px 10px -7px #070707'),
-            getColor('0px 0px 10px -2px #9f9f9f', '0px 0px 10px -2px #070707'),
-            '',
-            '',
+            getColor('0px 3px 6px -1px #9f9f9f', '0px 3px 6px -1px #070707'),
+            getColor('0px 3px 6px #1111111f', '0px 3px 6px #0000001f'),
+            getColor('0px 3px 6px #11111129', '0px 3px 6px #00000029'),
             '',
             '',
             '',

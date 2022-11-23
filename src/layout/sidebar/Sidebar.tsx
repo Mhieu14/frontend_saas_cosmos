@@ -8,7 +8,7 @@ import { menu } from '../menu';
 const SidebarBox = styled(Box)(({ theme }) => ({
     position: 'fixed',
     height: '100vh',
-    // boxShadow: '0px 0px 10px 0px #e7e7e7',
+    boxShadow: theme.shadows[4],
     background: theme.palette.background.paper,
     zIndex: layoutConfig.sidebar.zIndex,
     overflow: 'hidden',
