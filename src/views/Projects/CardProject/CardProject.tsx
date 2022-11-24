@@ -19,6 +19,7 @@ export default function CardProject(props: { data: CardProjectProps; index: numb
                 bgcolor: 'background.paper',
                 transition: '0.3s',
                 boxShadow: theme.shadows[3],
+                height: '100%',
                 ':hover': { boxShadow: theme.shadows[2], '& .indexProject': { top: 16, opacity: 0.2 } },
             })}
         >
@@ -34,10 +35,14 @@ export default function CardProject(props: { data: CardProjectProps; index: numb
                         {data.name}
                     </Typography>
                 </Link>
-                <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
+                <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ mt: 2, maxWidth: '100%', overflow: 'hidden', display: '-webkit-box', height: '38px', textOverflow: 'ellipsis', '-webkit-line-clamp': '2', '-webkit-box-orient': 'vertical' }}
+                >
                     {data.desc}
                 </Typography>
-                <Typography variant="body3" color="primary.main" sx={{ fontWeight: '500', mt: 1 }}>
+                <Typography variant="body3" color="primary.main" sx={{ fontWeight: '500', mt: 2 }}>
                     Node {data.nodeNumber}
                 </Typography>
             </Box>

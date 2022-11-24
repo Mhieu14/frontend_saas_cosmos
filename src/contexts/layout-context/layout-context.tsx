@@ -1,7 +1,8 @@
 import { useMediaQuery } from '@mui/material';
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { imagePath } from 'src/constants/ImagePath';
 import { BaseContextProps } from 'src/global.config';
+import { useThemeContext } from '../theme-context';
 
 export interface LayoutContextProps {
     sidebarWidth: string;
@@ -29,13 +30,16 @@ const LayoutContext = createContext<LayoutContextProps>({} as LayoutContextProps
 export function LayoutProvider({ children }: BaseContextProps) {
     const breakPointLayout = useMediaQuery('(max-width:1024px)');
     const [sidebarWidth, setSidebarWidth] = useState<string>(breakPointLayout ? '0px' : layoutConfig.sidebar.fullWidth);
+    const { mode } = useThemeContext();
     const logo = useMemo(() => {
+        console.log('change logo');
         if (sidebarWidth === layoutConfig.sidebar.fullWidth) {
-            return imagePath.LOGO_LONG_BLUE;
+            console.log(mode);
+            return mode === 'dark' ? imagePath.LOGO_BLUE_WHITE : imagePath.LOGO_LONG_BLUE;
         } else {
             return imagePath.LOGO_SHORT_BLUE;
         }
-    }, [sidebarWidth]);
+    }, [sidebarWidth, mode]);
 
     const toggleSidebar = () => {
         if (sidebarWidth === layoutConfig.sidebar.fullWidth) {

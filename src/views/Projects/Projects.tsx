@@ -24,13 +24,13 @@ export default function Projects() {
         {
             id: 'project2',
             name: 'Project 2',
-            desc: 'Oraichain validator to get reward.',
+            desc: 'Oraichain validator to get reward. Oraic validator to get reward. Orain validator to get reward.',
             nodeNumber: 3,
         },
         {
             id: 'project3',
             name: 'Project 3',
-            desc: 'Oraichain validator to get reward.',
+            desc: 'Oraichain validator to get reward. Oraich validator to get reward. Oraiain validator to get reward. Orin validator to get reward.',
             nodeNumber: 4,
         },
         {
@@ -42,7 +42,7 @@ export default function Projects() {
         {
             id: 'project5',
             name: 'Project 5',
-            desc: 'Oraichain validator to get reward.',
+            desc: 'Oraichain validator to get reward. Ohain valitor to get reward. Orain valitor to get reward. Orain valtor to get reward. Oraichain validator to get reward.',
             nodeNumber: 3,
         },
         {
@@ -78,7 +78,7 @@ export default function Projects() {
                     })}
                 </Grid>
             </Box>
-            <button
+            {/* <button
                 onClick={() =>
                     dispatch(
                         action.sendDelegate({
@@ -91,7 +91,7 @@ export default function Projects() {
             >
                 click
             </button>
-            <button onClick={() => dispatch(action.signUserLogin({ notifier: notify }))}>click2</button>
+            <button onClick={() => dispatch(action.signUserLogin({ notifier: notify }))}>click2</button> */}
         </Box>
     );
 }
