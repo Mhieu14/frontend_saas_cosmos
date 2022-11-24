@@ -49,7 +49,7 @@ export default function DetailProject() {
                         Date created
                     </Grid>
                 </TableHeader>
-                <Divider sx={{ bgcolor: 'background.divider', opacity: '0.7', mt: 1 }} />
+                <Divider sx={{ bgcolor: 'divider', opacity: '0.7', mt: 1 }} />
                 <NodeRow projectId={projectId || 'unknow'} />
             </Table>
         </Box>

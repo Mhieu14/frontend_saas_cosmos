@@ -19,7 +19,7 @@ declare module '@mui/material/styles/createPalette' {
         paper: string;
         primary: string;
         secondary: string;
-        divider: string;
+        sidebar: string;
     }
 
     interface Palette {
@@ -110,12 +110,13 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
         ],
         palette: {
             mode,
+            divider: getColor('#7d7d89', '#dfdfdf'),
             background: {
-                paper: getColor('#0c002280', '#FFFFFF'),
-                default: getColor('#1d1d42', '#f4f6f8'),
+                sidebar: getColor('#00000000', '#FFFFFF'),
+                paper: getColor('#1c275461', '#FFFFFF'),
+                default: getColor('#131c3c', '#f4f6f8'),
                 primary: getColor('#031527', '#FFFFFF'),
                 secondary: getColor('#07111C', '#FFFFFF'),
-                divider: getColor('#2c2c47', '#dfdfdf'),
             },
             gradient: {
                 main: 'linear-gradient(100.42deg, #2C85EE 16.07%, #4FB5FF 79.2%)',
@@ -133,10 +134,10 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
             //     main: '#1C8CF3',
             //     light: '#25A0E226',
             // },
-            // success: {
-            // main: '#2bd180',
-            // light: '#2bd18226',
-            // },
+            success: {
+                main: '#2e7d32',
+                light: '#2e7d3226',
+            },
             warning: {
                 main: '#FFBC0A',
                 light: '#FFBC0A26',

@@ -9,9 +9,11 @@ const SidebarBox = styled(Box)(({ theme }) => ({
     position: 'fixed',
     height: '100vh',
     boxShadow: theme.shadows[4],
-    background: theme.palette.background.paper,
+    background: theme.palette.background.sidebar,
     zIndex: layoutConfig.sidebar.zIndex,
     overflow: 'hidden',
+    borderRadius: '0px 10px 10px 0px',
+    backdropFilter: 'blur(20px)',
     transition: theme.transitions.create(['width'], { duration: layoutConfig.transition, easing: 'ease' }),
 })) as typeof Box;
 
@@ -24,7 +26,7 @@ export default function Sidebar() {
             <BoxWrapper sx={{ display: 'flex', height: layoutConfig.header.height, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                 <img src={logo} alt="vchain logo" title="vchain logo" style={{ maxWidth: '200px', maxHeight: '40px' }} />
             </BoxWrapper>
-            <Box sx={{ height: '1px', bgcolor: 'background.divider', margin: '0px 14px' }}></Box>
+            <Box sx={{ height: '1px', bgcolor: 'divider', margin: '0px 14px' }}></Box>
             <Box>
                 {menu.map((item, index) => {
                     let checkActive = item.url === route.pathname;
@@ -76,7 +78,7 @@ export default function Sidebar() {
                     flexWrap: 'nowrap',
                     placeItems: 'center',
                     borderTop: '1px dashed',
-                    borderColor: 'background.divider',
+                    borderColor: 'divider',
                     width: '100%',
                 }}
                 component="div"
