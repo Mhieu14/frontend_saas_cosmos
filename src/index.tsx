@@ -1,10 +1,14 @@
+import axios from 'axios';
 import { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import LoadingPage from './common/LoadingPage/LoadingPage';
+import { LocalstorageData } from './constants';
 
 import reportWebVitals from './reportWebVitals';
 import RouterUrl from './routes';
+
+axios.defaults.headers.common['Authorization'] = LocalstorageData.TOKEN;
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

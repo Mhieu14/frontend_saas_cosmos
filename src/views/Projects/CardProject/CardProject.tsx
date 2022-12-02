@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { IOverviewProjectData } from 'src/api/project/type';
 import { BoxWrapper } from 'src/common/BoxWrapper';
 
 export type CardProjectProps = {
@@ -9,7 +10,7 @@ export type CardProjectProps = {
     id: string;
 };
 
-export default function CardProject(props: { data: CardProjectProps; index: number }) {
+export default function CardProject(props: { data: IOverviewProjectData; index: number }) {
     const { data, index } = props;
     return (
         <BoxWrapper
@@ -30,7 +31,7 @@ export default function CardProject(props: { data: CardProjectProps; index: numb
                 {index + 1}
             </Box>
             <Box>
-                <Link to={`/projects/${data.id}`} style={{ textDecoration: 'none' }}>
+                <Link to={`/projects/${data.projectId}`} style={{ textDecoration: 'none' }}>
                     <Typography variant="h5" color="text.primary">
                         {data.name}
                     </Typography>
@@ -40,10 +41,10 @@ export default function CardProject(props: { data: CardProjectProps; index: numb
                     color="text.secondary"
                     sx={{ mt: 2, maxWidth: '100%', overflow: 'hidden', display: '-webkit-box', height: '38px', textOverflow: 'ellipsis', '-webkit-line-clamp': '2', '-webkit-box-orient': 'vertical' }}
                 >
-                    {data.desc}
+                    {data.description}
                 </Typography>
                 <Typography variant="body3" color="primary.main" sx={{ fontWeight: '500', mt: 2 }}>
-                    Node {data.nodeNumber}
+                    Node {data.status}
                 </Typography>
             </Box>
         </BoxWrapper>

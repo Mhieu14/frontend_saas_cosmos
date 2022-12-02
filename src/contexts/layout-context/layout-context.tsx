@@ -32,9 +32,9 @@ export function LayoutProvider({ children }: BaseContextProps) {
     const [sidebarWidth, setSidebarWidth] = useState<string>(breakPointLayout ? '0px' : layoutConfig.sidebar.fullWidth);
     const { mode } = useThemeContext();
     const logo = useMemo(() => {
-        console.log('change logo');
+        // console.log('change logo');
         if (sidebarWidth === layoutConfig.sidebar.fullWidth) {
-            console.log(mode);
+            // console.log(mode);
             return mode === 'dark' ? imagePath.LOGO_BLUE_WHITE : imagePath.LOGO_LONG_BLUE;
         } else {
             return imagePath.LOGO_SHORT_BLUE;
