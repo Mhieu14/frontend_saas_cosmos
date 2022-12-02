@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
+import Login from './views/login/Login';
 // import Layout from './layout/Layout';
 import DetailNode from './views/Projects/DetailProject/DetailNode/DetailNode';
 import DetailProject from './views/Projects/DetailProject/DetailProject';
@@ -18,5 +19,6 @@ export default function RouterUrl() {
                 { path: '/', element: <Navigate to={'/projects'} /> },
             ],
         },
+        { path: '/login', element: <Login /> },
     ]);
 }
