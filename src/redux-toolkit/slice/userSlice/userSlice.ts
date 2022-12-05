@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/redux-toolkit/rootReducer';
+import { BaseThunkApiProps } from 'src/redux-toolkit/stores';
 
 const initialState: UserSliceState = {
     state: 'finished',
@@ -8,7 +9,8 @@ const initialState: UserSliceState = {
 };
 
 const thunkFuntion = {
-    testGetData: createAsyncThunk<void, any, { state: RootState }>('test/testgetdata', async (useNotifier, thunkApi) => {
+    signLogin: createAsyncThunk<void, any, BaseThunkApiProps>('user/sign-login', async (useNotifier, thunkApi) => {}),
+    testGetData: createAsyncThunk<void, any, BaseThunkApiProps>('user/testgetdata', async (useNotifier, thunkApi) => {
         try {
             const { notifySuccess } = useNotifier;
             notifySuccess('alooooo');
@@ -21,12 +23,7 @@ const thunkFuntion = {
 const userSlice = createSlice({
     name: 'user',
     initialState: initialState,
-    reducers: {
-        getAddress: (state) => {
-            state.state = 'loading';
-            state.data = 'address';
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(thunkFuntion.testGetData.fulfilled, (state, action) => {});
     },

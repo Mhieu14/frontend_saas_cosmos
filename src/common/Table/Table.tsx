@@ -6,7 +6,7 @@ export const Table = styled(Box)(({ theme }) => ({
     borderRadius: layoutConfig.borderRadius,
     overflow: 'auto',
     background: theme.palette.background.paper,
-
+    boxShadow: theme.shadows[3],
     [theme.breakpoints.down('xsm')]: {
         padding: theme.spacing(1.5),
     },

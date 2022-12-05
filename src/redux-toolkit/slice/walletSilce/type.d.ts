@@ -2,7 +2,7 @@ import { ChainInfo } from '@keplr-wallet/types';
 import Cosm from '@tovchain/cosms';
 import { FetchingStatus } from 'src/constants/FetchingStatus';
 import { NotifyFunctionInferface } from 'src/hooks/useNotifier';
-import CosmStargate from '@cosmjs/stargate';
+import { SigningStargateClient } from '@cosmjs/stargate';
 
 export interface WalletSliceState {
     status: {
@@ -11,7 +11,7 @@ export interface WalletSliceState {
     error: Error | undefined;
     address: string;
     vchainClient: Cosm | null;
-    cosmStargateClient: CosmStargate | null;
+    cosmStargateClient: SigningStargateClient | null;
     chainConnectedInfo: ChainInfo | null;
 }
 
@@ -32,4 +32,9 @@ export interface ThunkFcSendDelegateInput {
     notifier: NotifyFunctionInferface;
     amount: string | number;
     validatorAddress: string;
+}
+
+// * thunkFuntion.signUserLogin -------------------------------------------------------------
+export interface ThunkFcSignUserLoginInput {
+    notifier: NotifyFunctionInferface;
 }

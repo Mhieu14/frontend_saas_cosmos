@@ -13,7 +13,7 @@ export default function Header() {
                 <ToggleThemeButton />
                 <ConnectWalletBtn />
             </Box>
-            <Box sx={{ height: '1px', bgcolor: 'background.divider', margin: '0px' }}></Box>
+            <Box sx={{ height: '1px', bgcolor: 'divider', margin: '0px' }}></Box>
         </BoxWrapper>
     );
 }

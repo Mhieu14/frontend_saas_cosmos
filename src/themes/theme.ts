@@ -19,7 +19,7 @@ declare module '@mui/material/styles/createPalette' {
         paper: string;
         primary: string;
         secondary: string;
-        divider: string;
+        sidebar: string;
     }
 
     interface Palette {
@@ -84,9 +84,9 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
         shadows: [
             'none',
             getColor('none', '0px 0px 10px -7px #070707'),
-            getColor('0px 0px 10px -2px #9f9f9f', '0px 0px 10px -2px #070707'),
-            '',
-            '',
+            getColor('0px 2px 6px 0px #0c002280', '0px 3px 6px -1px #070707'),
+            getColor('0px 2px 6px #0c002280', '0px 3px 6px #0000001f'),
+            getColor('0px 2px 6px #0c002280', '0px 3px 6px #00000029'),
             '',
             '',
             '',
@@ -110,12 +110,13 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
         ],
         palette: {
             mode,
+            divider: getColor('#7d7d89', '#dfdfdf'),
             background: {
-                paper: getColor('#232323', '#FFFFFF'),
-                default: getColor('#0d0d0d', '#f4f6f8'),
+                sidebar: getColor('#00000000', '#FFFFFF'),
+                paper: getColor('#1c275461', '#FFFFFF'),
+                default: getColor('#131c3c', '#f4f6f8'),
                 primary: getColor('#031527', '#FFFFFF'),
                 secondary: getColor('#07111C', '#FFFFFF'),
-                divider: getColor('#3a3a3a', '#dfdfdf'),
             },
             gradient: {
                 main: 'linear-gradient(100.42deg, #2C85EE 16.07%, #4FB5FF 79.2%)',
@@ -133,10 +134,10 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
             //     main: '#1C8CF3',
             //     light: '#25A0E226',
             // },
-            // success: {
-            // main: '#2bd180',
-            // light: '#2bd18226',
-            // },
+            success: {
+                main: '#2e7d32',
+                light: '#2e7d3226',
+            },
             warning: {
                 main: '#FFBC0A',
                 light: '#FFBC0A26',
@@ -156,19 +157,20 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
             },
         },
         typography: {
-            h1: buildVariant(700, 35, 41, 0.25),
-            h2: buildVariant(700, 30, 35.16),
-            h3: buildVariant(500, 30, 35.16),
-            h4: buildVariant(700, 20, 23.44, 0.25),
-            h5: buildVariant(500, 20, 23.44, 0.15),
-            h6: buildVariant(500, 18, 21.44),
-            body1: buildVariant(400, 16, 18.75, 0.15),
-            body2: buildVariant(300, 16, 18.75, 0.15),
-            body3: buildVariant(400, 14, 18.75, 0.1),
-            subtitle1: buildVariant(700, 16, 18.75, 0.15),
-            subtitle2: buildVariant(500, 16, 18.75, 0.15),
+            fontFamily: 'Poppins,sans-serif',
+            h1: buildVariant(600, 34, 41, 0.1),
+            h2: buildVariant(600, 29, 35.16, 0.1),
+            h3: buildVariant(500, 29, 35.16),
+            h4: buildVariant(500, 20, 23.44, 0),
+            h5: buildVariant(500, 19, 23.44, 0),
+            h6: buildVariant(500, 17, 21.44),
+            body1: buildVariant(400, 15, 18.75, 0),
+            body2: buildVariant(300, 15, 18.75, 0),
+            body3: buildVariant(400, 13, 18.75, 0),
+            subtitle1: buildVariant(700, 15, 18.75, 0),
+            subtitle2: buildVariant(500, 15, 18.75, 0),
             button: {
-                ...buildVariant(500, 15, 15, 0.15),
+                ...buildVariant(500, 14, 14, 0.1),
                 textTransform: 'none',
             },
         },
@@ -326,6 +328,7 @@ export function getThemedComponent(theme: Theme): ThemeOptions {
                     noSsr: true,
                 },
             },
+
             MuiTooltip: {
                 defaultProps: {
                     arrow: true,

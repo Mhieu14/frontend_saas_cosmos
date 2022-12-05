@@ -9,7 +9,15 @@ export default function ModalAddNode() {
         { label: 'hgggdg', key: 'fsdf' },
     ];
     return (
-        <DialogContent sx={{ minHeight: '500px' }}>
+        <DialogContent
+            sx={{
+                minHeight: '500px',
+                '& .MuiAutocomplete-popper': {
+                    boxShadow: 3,
+                    borderRadius: '10px',
+                },
+            }}
+        >
             <TextField fullWidth label="Node name"></TextField>
             <br />
             <br />

@@ -18,18 +18,18 @@ const onClickDismiss = (key: SnackbarKey) => () => {
 
 export default function Layout() {
     return (
-        <LayoutProvider>
-            <SnackbarProvider
-                maxSnack={3}
-                ref={notistackRef}
-                preventDuplicate
-                action={(key) => (
-                    <IconButton size="small" color="inherit" onClick={onClickDismiss(key)}>
-                        <Clear style={{ cursor: 'pointer' }} />
-                    </IconButton>
-                )}
-            >
-                <ThemeCustomProvider>
+        <ThemeCustomProvider>
+            <LayoutProvider>
+                <SnackbarProvider
+                    maxSnack={3}
+                    ref={notistackRef}
+                    preventDuplicate
+                    action={(key) => (
+                        <IconButton size="small" color="inherit" onClick={onClickDismiss(key)}>
+                            <Clear style={{ cursor: 'pointer' }} />
+                        </IconButton>
+                    )}
+                >
                     <ModalProvider>
                         <Provider store={store}>
                             <Sidebar />
@@ -37,8 +37,8 @@ export default function Layout() {
                             <ModalCustom />
                         </Provider>
                     </ModalProvider>
-                </ThemeCustomProvider>
-            </SnackbarProvider>
-        </LayoutProvider>
+                </SnackbarProvider>
+            </LayoutProvider>
+        </ThemeCustomProvider>
     );
 }

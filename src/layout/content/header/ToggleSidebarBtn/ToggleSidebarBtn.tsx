@@ -1,12 +1,20 @@
-import { ViewSidebar } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { Menu } from '@mui/icons-material';
+import { Box, IconButton } from '@mui/material';
 import { useLayoutContext } from 'src/contexts/layout-context/layout-context';
+import { useThemeContext } from 'src/contexts/theme-context';
 
 export default function ToggleSidebarBtn() {
     const { toggleSidebar } = useLayoutContext();
+    const { desktopPoint } = useThemeContext();
     return (
-        <IconButton onClick={() => toggleSidebar()} sx={{ marginRight: 'auto' }}>
-            <ViewSidebar />
-        </IconButton>
+        <>
+            {desktopPoint ? (
+                <Box sx={{ marginRight: 'auto' }}></Box>
+            ) : (
+                <IconButton onClick={() => toggleSidebar()} sx={{ marginRight: 'auto' }}>
+                    <Menu />
+                </IconButton>
+            )}
+        </>
     );
 }

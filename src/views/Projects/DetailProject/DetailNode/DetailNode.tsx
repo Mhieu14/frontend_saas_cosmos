@@ -19,7 +19,8 @@ export default function DetailNode() {
                 </Link>
                 <Typography color="text.primary">{nodeId}</Typography>
             </Breadcrumbs>
-            <BoxWrapper sx={{ mt: 2, bgcolor: 'background.paper' }}>
+
+            <BoxWrapper sx={{ mt: 2, bgcolor: 'background.paper', boxShadow: 3 }}>
                 <Typography variant="body1" color="text.secondary" sx={{ mr: 1 }}>
                     Detail node
                 </Typography>
@@ -48,7 +49,7 @@ export default function DetailNode() {
                                 </Typography>
                             </Box>
                         </Grid>
-                        <Grid item xs={6} sm={3} sx={{ borderLeft: { xs: 'none', xsm: '1px solid' }, borderColor: { xsm: 'background.divider' } }}>
+                        <Grid item xs={6} sm={3} sx={{ borderLeft: { xs: 'none', xsm: '1px solid' }, borderColor: { xsm: 'divider' } }}>
                             <Box>
                                 <Typography variant="body1" color={'text.secondary'}>
                                     Mode
@@ -58,7 +59,7 @@ export default function DetailNode() {
                                 </Typography>
                             </Box>
                         </Grid>
-                        <Grid item xs={6} sm={3} sx={{ borderLeft: '1px solid', borderColor: 'background.divider' }}>
+                        <Grid item xs={6} sm={3} sx={{ borderLeft: '1px solid', borderColor: 'divider' }}>
                             <Box>
                                 <Typography variant="body1" color={'text.secondary'}>
                                     Hosting

@@ -8,26 +8,28 @@ import { menu } from '../menu';
 const SidebarBox = styled(Box)(({ theme }) => ({
     position: 'fixed',
     height: '100vh',
-    // boxShadow: '0px 0px 10px 0px #e7e7e7',
-    background: theme.palette.background.paper,
+    boxShadow: theme.shadows[4],
+    background: theme.palette.background.sidebar,
     zIndex: layoutConfig.sidebar.zIndex,
     overflow: 'hidden',
+    borderRadius: '0px 10px 10px 0px',
+    backdropFilter: 'blur(20px)',
     transition: theme.transitions.create(['width'], { duration: layoutConfig.transition, easing: 'ease' }),
 })) as typeof Box;
 
 export default function Sidebar() {
     const { sidebarWidth, logo, toggleSidebar } = useLayoutContext();
     const route = useLocation();
-
+    // console.log(route);
     return (
         <SidebarBox sx={{ width: sidebarWidth }}>
             <BoxWrapper sx={{ display: 'flex', height: layoutConfig.header.height, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                 <img src={logo} alt="vchain logo" title="vchain logo" style={{ maxWidth: '200px', maxHeight: '40px' }} />
             </BoxWrapper>
-            <Box sx={{ height: '1px', bgcolor: 'background.divider', margin: '0px 14px' }}></Box>
+            <Box sx={{ height: '1px', bgcolor: 'divider', margin: '0px 14px' }}></Box>
             <Box>
                 {menu.map((item, index) => {
-                    let checkActive = item.url === route.pathname;
+                    let checkActive = route.pathname.indexOf(item.url) === 0;
                     let isFullSidebar = sidebarWidth === layoutConfig.sidebar.fullWidth;
                     return (
                         <Link to={item.url} key={'menusidebar' + item.title + index} style={{ textDecoration: 'none' }}>
@@ -45,12 +47,12 @@ export default function Sidebar() {
                                     position: 'relative',
                                     '&:before': {
                                         position: 'absolute',
-                                        top: '10%',
+                                        top: '0',
                                         left: -4,
                                         content: "''",
                                         display: checkActive ? 'block' : 'none',
                                         width: '8px',
-                                        height: '80%',
+                                        height: '100%',
                                         bgcolor: 'primary.main',
                                         borderTopRightRadius: 5,
                                         borderBottomRightRadius: 5,
@@ -76,7 +78,7 @@ export default function Sidebar() {
                     flexWrap: 'nowrap',
                     placeItems: 'center',
                     borderTop: '1px dashed',
-                    borderColor: 'background.divider',
+                    borderColor: 'divider',
                     width: '100%',
                 }}
                 component="div"

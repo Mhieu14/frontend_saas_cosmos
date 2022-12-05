@@ -1,6 +1,9 @@
-import { Box, Button, Typography } from '@mui/material';
+import { AutorenewOutlined, Done, ErrorOutline, MoreTimeOutlined } from '@mui/icons-material';
+import { Box, Button, Chip, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { IOverviewProjectData } from 'src/api/project/type';
 import { BoxWrapper } from 'src/common/BoxWrapper';
+import { NodeStatusType } from 'src/global.config';
 
 export type CardProjectProps = {
     name: string;
@@ -9,7 +12,7 @@ export type CardProjectProps = {
     id: string;
 };
 
-export default function CardProject(props: { data: CardProjectProps; index: number }) {
+export default function CardProject(props: { data: IOverviewProjectData; index: number }) {
     const { data, index } = props;
     return (
         <BoxWrapper
@@ -18,7 +21,8 @@ export default function CardProject(props: { data: CardProjectProps; index: numb
                 position: 'relative',
                 bgcolor: 'background.paper',
                 transition: '0.3s',
-                boxShadow: theme.shadows[1],
+                boxShadow: theme.shadows[3],
+                height: '100%',
                 ':hover': { boxShadow: theme.shadows[2], '& .indexProject': { top: 16, opacity: 0.2 } },
             })}
         >
@@ -29,18 +33,36 @@ export default function CardProject(props: { data: CardProjectProps; index: numb
                 {index + 1}
             </Box>
             <Box>
-                <Link to={`/projects/${data.id}`} style={{ textDecoration: 'none' }}>
-                    <Typography variant="h5" color="text.primary">
+                <Link to={`/projects/${data.projectId}`} style={{ textDecoration: 'none' }}>
+                    <Typography variant="h5" color="text.primary" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {data.name}
                     </Typography>
                 </Link>
-                <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
-                    {data.desc}
-                </Typography>
-                <Typography variant="body3" color="primary.main" sx={{ fontWeight: '500', mt: 1 }}>
-                    Node {data.nodeNumber}
+                <ChipStatus status={data.status} />
+                <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ mt: 2, maxWidth: '100%', overflow: 'hidden', display: '-webkit-box', height: '38px', textOverflow: 'ellipsis', WebkitLineClamp: '2', WebkitBoxOrient: 'vertical' }}
+                >
+                    {data.description}
                 </Typography>
             </Box>
         </BoxWrapper>
     );
+}
+
+function ChipStatus({ status }: { status: NodeStatusType }) {
+    if (status === 'CREATED') {
+        return <Chip sx={{ mt: 1 }} label={'Created'} color="success" size="small" avatar={<Done sx={{ color: 'white!important' }} />}></Chip>;
+    }
+    if (status === 'CREATE_FAIL') {
+        return <Chip sx={{ mt: 1 }} label={'Created fail'} color="error" size="small" avatar={<ErrorOutline sx={{ color: 'white!important' }} />} />;
+    }
+    if (status === 'CREATE_PENDING') {
+        return <Chip sx={{ mt: 1 }} label={'Create pending'} color="warning" size="small" avatar={<MoreTimeOutlined sx={{ color: 'white!important' }} />} />;
+    }
+    if (status === 'CREATE_RETRYING') {
+        return <Chip sx={{ mt: 1 }} label={'Create retrying'} color="warning" size="small" avatar={<AutorenewOutlined sx={{ color: 'white!important' }} />} />;
+    }
+    return <Chip label={'Unknow'} />;
 }
