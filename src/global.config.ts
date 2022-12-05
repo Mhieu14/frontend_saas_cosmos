@@ -58,4 +58,4 @@ export interface BaseContextProps {
 }
 
 // TODO: write type golbal for current app
-export type NodeStatusType = 'CREATE_PENDING' | 'CREATE_FAIL' | 'CREATED' | 'DELETE_PENDING' | 'DELETE_FAIL' | 'DELETED' | 'CREATE_RETRYING';
+export type NodeStatusType = 'CREATE_PENDING' | 'CREATE_FAIL' | 'CREATED' | 'DELETE_PENDING' | 'DELETE_FAIL' | 'DELETED' | 'CREATE_RETRYING' | 'UNKNOW';

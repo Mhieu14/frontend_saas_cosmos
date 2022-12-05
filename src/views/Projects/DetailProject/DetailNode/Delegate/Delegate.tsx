@@ -20,7 +20,7 @@ function LineData({ title, value }: { title: string; value: string }) {
 export default function Delegate() {
     return (
         <>
-            <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3 }}>
+            <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3, boxShadow: 3 }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} xsm={6}>
                         <LineData title="Validator:" value="Node 1" />
@@ -48,7 +48,7 @@ export default function Delegate() {
                     </Grid>
                 </Grid>
             </BoxWrapper>
-            <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3 }}>
+            <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3, boxShadow: 3 }}>
                 <Alert severity="success" color="info">
                     <AlertTitle>Your delegated value:</AlertTitle>
                     <LineData title="12 ORAI" value="~$1000"></LineData>

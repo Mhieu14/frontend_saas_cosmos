@@ -1,25 +1,53 @@
 import { Add, NavigateNext } from '@mui/icons-material';
-import { Box, Breadcrumbs, Button, Divider, Grid, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, Divider, Grid, Skeleton, Typography } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import { Table } from 'src/common/Table/Table';
 import { TableHeader } from 'src/common/Table/TableHeader';
 import { useModalContext } from 'src/contexts/modal-context';
 import ModalAddNode from './ModalAddNode/ModalAddNode';
 import NodeRow from './NodeRow/NodeRow';
+import { useEffect, useState } from 'react';
+import { projectService } from 'src/api/project/projectService';
+import { IDetailProjectData } from 'src/api/project/type';
+
+const initData: IDetailProjectData = {
+    createdAt: '',
+    description: '---',
+    name: '---',
+    nodes: [],
+    projectId: '',
+    status: 'UNKNOW',
+    userId: '',
+};
 
 export default function DetailProject() {
     const { projectId } = useParams();
     const { openModal } = useModalContext();
+    const [loading, setLoading] = useState<boolean>(true);
+    const [data, setData] = useState<IDetailProjectData>(initData);
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await projectService.getProject(projectId || '');
+                setData(response);
+            } catch (err) {
+                console.log(err);
+            }
+            setLoading(false);
+        })();
+        return () => {};
+    }, []);
+
     return (
         <Box>
             <Breadcrumbs separator={<NavigateNext fontSize="small" />} aria-label="breadcrumb">
                 <Link to={'/projects'} style={{ textDecoration: 'none' }}>
                     <Typography color="text.secondary">Projects</Typography>
                 </Link>
-                <Typography color="text.primary">{projectId}</Typography>
+                {loading ? <Skeleton variant="text" animation="wave" width={150} height={19} /> : <Typography color="text.primary">{data.name}</Typography>}
             </Breadcrumbs>
             <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h5">Prject name</Typography>
+                {loading ? <Skeleton variant="text" animation="wave" width={150} height={24} /> : <Typography variant="h5">{data.name}</Typography>}
                 <Button variant="contained" color="success" sx={{ color: 'white' }} onClick={() => openModal('Add Node', <ModalAddNode />)}>
                     <Add /> Add Node
                 </Button>

@@ -3,7 +3,7 @@ import { BoxWrapper } from 'src/common/BoxWrapper';
 
 export default function CreateValidator() {
     return (
-        <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3 }}>
+        <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3, boxShadow: 3 }}>
             <Alert severity="info" sx={{ justifyContent: 'center' }}>
                 <Typography sx={{ fontWeight: '500' }}>You need to stake to this node become a validator</Typography>
             </Alert>

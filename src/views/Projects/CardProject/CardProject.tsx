@@ -1,7 +1,9 @@
-import { Box, Button, Typography } from '@mui/material';
+import { AutorenewOutlined, Done, ErrorOutline, MoreTimeOutlined } from '@mui/icons-material';
+import { Box, Button, Chip, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { IOverviewProjectData } from 'src/api/project/type';
 import { BoxWrapper } from 'src/common/BoxWrapper';
+import { NodeStatusType } from 'src/global.config';
 
 export type CardProjectProps = {
     name: string;
@@ -32,21 +34,35 @@ export default function CardProject(props: { data: IOverviewProjectData; index: 
             </Box>
             <Box>
                 <Link to={`/projects/${data.projectId}`} style={{ textDecoration: 'none' }}>
-                    <Typography variant="h5" color="text.primary">
+                    <Typography variant="h5" color="text.primary" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {data.name}
                     </Typography>
                 </Link>
+                <ChipStatus status={data.status} />
                 <Typography
                     variant="body1"
                     color="text.secondary"
-                    sx={{ mt: 2, maxWidth: '100%', overflow: 'hidden', display: '-webkit-box', height: '38px', textOverflow: 'ellipsis', '-webkit-line-clamp': '2', '-webkit-box-orient': 'vertical' }}
+                    sx={{ mt: 2, maxWidth: '100%', overflow: 'hidden', display: '-webkit-box', height: '38px', textOverflow: 'ellipsis', WebkitLineClamp: '2', WebkitBoxOrient: 'vertical' }}
                 >
                     {data.description}
-                </Typography>
-                <Typography variant="body3" color="primary.main" sx={{ fontWeight: '500', mt: 2 }}>
-                    Node {data.status}
                 </Typography>
             </Box>
         </BoxWrapper>
     );
+}
+
+function ChipStatus({ status }: { status: NodeStatusType }) {
+    if (status === 'CREATED') {
+        return <Chip sx={{ mt: 1 }} label={'Created'} color="success" size="small" avatar={<Done sx={{ color: 'white!important' }} />}></Chip>;
+    }
+    if (status === 'CREATE_FAIL') {
+        return <Chip sx={{ mt: 1 }} label={'Created fail'} color="error" size="small" avatar={<ErrorOutline sx={{ color: 'white!important' }} />} />;
+    }
+    if (status === 'CREATE_PENDING') {
+        return <Chip sx={{ mt: 1 }} label={'Create pending'} color="warning" size="small" avatar={<MoreTimeOutlined sx={{ color: 'white!important' }} />} />;
+    }
+    if (status === 'CREATE_RETRYING') {
+        return <Chip sx={{ mt: 1 }} label={'Create retrying'} color="warning" size="small" avatar={<AutorenewOutlined sx={{ color: 'white!important' }} />} />;
+    }
+    return <Chip label={'Unknow'} />;
 }

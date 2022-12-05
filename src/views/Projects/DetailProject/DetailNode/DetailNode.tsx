@@ -19,7 +19,8 @@ export default function DetailNode() {
                 </Link>
                 <Typography color="text.primary">{nodeId}</Typography>
             </Breadcrumbs>
-            <BoxWrapper sx={{ mt: 2, bgcolor: 'background.paper' }}>
+
+            <BoxWrapper sx={{ mt: 2, bgcolor: 'background.paper', boxShadow: 3 }}>
                 <Typography variant="body1" color="text.secondary" sx={{ mr: 1 }}>
                     Detail node
                 </Typography>

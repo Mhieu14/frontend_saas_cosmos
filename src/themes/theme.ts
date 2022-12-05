@@ -328,6 +328,7 @@ export function getThemedComponent(theme: Theme): ThemeOptions {
                     noSsr: true,
                 },
             },
+
             MuiTooltip: {
                 defaultProps: {
                     arrow: true,

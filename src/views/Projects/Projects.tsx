@@ -12,22 +12,24 @@ export default function Projects() {
     const { openModal } = useModalContext();
     const [data, setData] = useState<IResponseGetListProjects>({ projects: [], total: 0 } as IResponseGetListProjects);
     useEffect(() => {
-        (async () => {
-            try {
-                const response = await projectService.getListProjects();
-                console.log(response);
-                setData(response);
-            } catch (err) {
-                console.log(err);
-            }
-        })();
+        getListData();
     }, []);
+
+    async function getListData() {
+        try {
+            const response = await projectService.getListProjects();
+            console.log(response);
+            setData(response);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
         <Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="h4">Projects</Typography>
-                <Button variant="contained" color="success" sx={{ color: 'white' }} onClick={() => openModal('Create new project', <ModalCreateProject />)}>
+                <Button variant="contained" color="success" sx={{ color: 'white' }} onClick={() => openModal('Create new project', <ModalCreateProject updateData={getListData} />)}>
                     <Add /> Create Project
                 </Button>
             </Box>

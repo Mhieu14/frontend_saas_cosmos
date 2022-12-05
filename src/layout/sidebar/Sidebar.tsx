@@ -20,7 +20,7 @@ const SidebarBox = styled(Box)(({ theme }) => ({
 export default function Sidebar() {
     const { sidebarWidth, logo, toggleSidebar } = useLayoutContext();
     const route = useLocation();
-
+    // console.log(route);
     return (
         <SidebarBox sx={{ width: sidebarWidth }}>
             <BoxWrapper sx={{ display: 'flex', height: layoutConfig.header.height, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
@@ -29,7 +29,7 @@ export default function Sidebar() {
             <Box sx={{ height: '1px', bgcolor: 'divider', margin: '0px 14px' }}></Box>
             <Box>
                 {menu.map((item, index) => {
-                    let checkActive = item.url === route.pathname;
+                    let checkActive = route.pathname.indexOf(item.url) === 0;
                     let isFullSidebar = sidebarWidth === layoutConfig.sidebar.fullWidth;
                     return (
                         <Link to={item.url} key={'menusidebar' + item.title + index} style={{ textDecoration: 'none' }}>
@@ -47,12 +47,12 @@ export default function Sidebar() {
                                     position: 'relative',
                                     '&:before': {
                                         position: 'absolute',
-                                        top: '10%',
+                                        top: '0',
                                         left: -4,
                                         content: "''",
                                         display: checkActive ? 'block' : 'none',
                                         width: '8px',
-                                        height: '80%',
+                                        height: '100%',
                                         bgcolor: 'primary.main',
                                         borderTopRightRadius: 5,
                                         borderBottomRightRadius: 5,
