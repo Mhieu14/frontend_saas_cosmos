@@ -101,7 +101,7 @@ const thunkFuntion = {
     sendDelegate: createAsyncThunk<void, ThunkFcSendDelegateInput, BaseThunkApiProps>('wallet/send-delegate', async (input, thunkApi) => {
         const { notifier, amount, validatorAddress } = input;
         const { notifyError, notifySuccess } = notifier;
-        const { vchainClient, address, chainConnectedInfo, cosmStargateClient } = thunkApi.getState().walletSliceReducer;
+        const { vchainClient, address, chainConnectedInfo, cosmStargateClient } = thunkApi.getState().wallet;
 
         if (!vchainClient || !cosmStargateClient) {
             notifyError('You have not connected your wallet yet!');
@@ -131,7 +131,7 @@ const thunkFuntion = {
         if (!window.keplr) {
             notifyWarn('You must install Keplr to continue!');
         } else {
-            const { address, chainConnectedInfo: chain } = thunkApi.getState().walletSliceReducer;
+            const { address, chainConnectedInfo: chain } = thunkApi.getState().wallet;
             if (!address) {
                 notifyError('You have not connected your wallet yet!');
             } else {
@@ -189,5 +189,5 @@ const walletSlice = createSlice({
 export const walletSliceReducer = walletSlice.reducer;
 
 export const useWalletSlice = () => {
-    return { state: useSelector((state: RootState) => state.walletSliceReducer), action: { ...walletSlice.actions, ...thunkFuntion } };
+    return { state: useSelector((state: RootState) => state.wallet), action: { ...walletSlice.actions, ...thunkFuntion } };
 };

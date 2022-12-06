@@ -1,5 +1,5 @@
 import { callApiProjects } from './callApi';
-import { IDetailProjectData, IOverviewProjectData, IResponseGetListProjects } from './type';
+import { IDetailProjectData, IOverviewNode, IOverviewProjectData, IResponseGetListProjects } from './type';
 
 export const projectService = {
     getListProjects: async (page: number = 1, itemPerPage: number = 12): Promise<IResponseGetListProjects> => {
@@ -30,7 +30,17 @@ export const projectService = {
             projectId: item.project_id,
             status: item.status,
             userId: item.user_id,
-            nodes: [],
+            nodes: item.nodes.map((item: any) => {
+                return {
+                    idNode: item.node_id,
+                    name: item.moniker,
+                    createdAt: item.created_at,
+                    host: item.cloud_provider.name,
+                    mode: '',
+                    network: item.network,
+                    status: item.status,
+                } as IOverviewNode;
+            }),
         };
     },
 };

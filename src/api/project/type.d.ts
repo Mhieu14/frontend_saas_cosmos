@@ -15,6 +15,7 @@ export interface IResponseGetListProjects {
 }
 
 export interface IOverviewNode {
+    idNode: string;
     name: string;
     network: string;
     status: NodeStatusType;
