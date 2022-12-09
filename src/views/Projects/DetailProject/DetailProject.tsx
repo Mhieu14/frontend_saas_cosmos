@@ -28,15 +28,20 @@ export default function DetailProject() {
     const [loading, setLoading] = useState<boolean>(true);
     const [data, setData] = useState<IDetailProjectData>(initData);
     const { notifyError } = useNotifier();
+
+    async function getProject() {
+        try {
+            const response = await projectService.getProject(projectId || '');
+            setData(response);
+        } catch (err) {
+            console.log(err);
+            notifyError((err as Error).message || '');
+        }
+    }
+
     useEffect(() => {
         (async () => {
-            try {
-                const response = await projectService.getProject(projectId || '');
-                setData(response);
-            } catch (err) {
-                console.log(err);
-                notifyError((err as Error).message || '');
-            }
+            await getProject();
             setLoading(false);
         })();
         return () => {};
@@ -57,7 +62,12 @@ export default function DetailProject() {
             </Box>
             <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
                 {loading ? <Skeleton variant="text" animation="wave" width={150} height={24} /> : <Typography variant="h3">{data.name}</Typography>}
-                <Button variant="contained" color="success" sx={{ color: 'white', marginLeft: 'auto' }} onClick={() => openModal('Add Node', <ModalAddNode />)}>
+                <Button
+                    variant="contained"
+                    color="success"
+                    sx={{ color: 'white', marginLeft: 'auto' }}
+                    onClick={() => openModal('Add Node', <ModalAddNode updateData={getProject} projectId={projectId || ''} />)}
+                >
                     <Add /> Add Node
                 </Button>
             </Box>

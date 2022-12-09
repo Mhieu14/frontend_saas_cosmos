@@ -53,16 +53,16 @@ export default function CardProject(props: { data: IOverviewProjectData; index: 
 
 function ChipStatus({ status }: { status: NodeStatusType }) {
     if (status === 'CREATED') {
-        return <Chip sx={{ mt: 1 }} label={'Created'} color="success" size="small" avatar={<Done sx={{ color: 'white!important' }} />}></Chip>;
+        return <Chip sx={{ mt: 1 }} label={'Created'} color="success" size="small"></Chip>;
     }
     if (status === 'CREATE_FAIL') {
-        return <Chip sx={{ mt: 1 }} label={'Created fail'} color="error" size="small" avatar={<ErrorOutline sx={{ color: 'white!important' }} />} />;
+        return <Chip sx={{ mt: 1 }} label={'Created fail'} color="error" size="small" />;
     }
     if (status === 'CREATE_PENDING') {
-        return <Chip sx={{ mt: 1 }} label={'Create pending'} color="warning" size="small" avatar={<MoreTimeOutlined sx={{ color: 'white!important' }} />} />;
+        return <Chip sx={{ mt: 1 }} label={'Create pending'} color="warning" size="small" />;
     }
     if (status === 'CREATE_RETRYING') {
-        return <Chip sx={{ mt: 1 }} label={'Create retrying'} color="warning" size="small" avatar={<AutorenewOutlined sx={{ color: 'white!important' }} />} />;
+        return <Chip sx={{ mt: 1 }} label={'Create retrying'} color="warning" size="small" />;
     }
     return <Chip label={'Unknow'} />;
 }

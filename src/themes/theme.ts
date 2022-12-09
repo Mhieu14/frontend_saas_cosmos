@@ -328,7 +328,13 @@ export function getThemedComponent(theme: Theme): ThemeOptions {
                     noSsr: true,
                 },
             },
-
+            MuiChip: {
+                defaultProps: {
+                    style: {
+                        borderRadius: '6px',
+                    },
+                },
+            },
             MuiTooltip: {
                 defaultProps: {
                     arrow: true,

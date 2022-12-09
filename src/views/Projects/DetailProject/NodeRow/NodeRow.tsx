@@ -28,7 +28,7 @@ export default function NodeRow(props: Props) {
                 {props.data.host}
             </Grid>
             <Grid item xs={2}>
-                {new Date(props.data.createdAt).toLocaleDateString()}
+                {props.data.createdAt ? new Date(props.data.createdAt).toLocaleDateString() : '---'}
             </Grid>
         </TableRow>
     );

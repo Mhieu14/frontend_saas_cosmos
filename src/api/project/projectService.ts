@@ -36,7 +36,7 @@ export const projectService = {
                     name: item.moniker,
                     createdAt: item.created_at,
                     host: item.cloud_provider.name,
-                    mode: '',
+                    mode: 'Full (fixed)',
                     network: item.network,
                     status: item.status,
                 } as IOverviewNode;
