@@ -52,7 +52,7 @@ export default function ConnectWalletBtn() {
     const { state, action } = useWalletSlice();
     const dispatch = useAppDispatch();
     const notify = useNotifier();
-    const { address, status } = state;
+    const { address, status, chainConnectedInfo } = state;
     const { connectWallet } = action;
 
     if (status.connectWallet === FetchingStatus.FETCHING) {
@@ -64,8 +64,16 @@ export default function ConnectWalletBtn() {
     }
 
     return (
-        <Button variant="contained" onClick={() => dispatch(connectWallet({ notifier: notify, chainConfig: chainConfig }))}>
-            {address ? formatAddress(address) : 'Connect Wallet'} <AccountBalanceWallet sx={{ ml: 1 }} />
+        <Button variant="contained" onClick={() => dispatch(connectWallet({ notifier: notify, chainConfig: chainConfig }))} sx={{ placeItems: address ? 'start' : 'center' }}>
+            {address ? (
+                <span>
+                    <span style={{ display: 'block', textAlign: 'left', fontSize: '16px', marginTop: '1px' }}>{formatAddress(address)}</span>
+                    <span style={{ display: 'block', textAlign: 'left', marginTop: '8px', fontSize: '11px' }}>{chainConnectedInfo?.chainId}</span>
+                </span>
+            ) : (
+                'Connect Wallet'
+            )}{' '}
+            <AccountBalanceWallet sx={{ ml: 1 }} />
         </Button>
     );
 }

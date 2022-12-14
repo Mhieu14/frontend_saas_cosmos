@@ -4,6 +4,11 @@ import { FetchingStatus } from 'src/constants/FetchingStatus';
 import { NotifyFunctionInferface } from 'src/hooks/useNotifier';
 import { SigningStargateClient } from '@cosmjs/stargate';
 
+export interface IChainConfig extends ChainInfo {
+    readonly decimal?: number;
+    readonly distributionDecimal?: number;
+    readonly mintDecimal?: number;
+}
 export interface WalletSliceState {
     status: {
         connectWallet: FetchingStatus;
@@ -12,19 +17,19 @@ export interface WalletSliceState {
     address: string;
     vchainClient: Cosm | null;
     cosmStargateClient: SigningStargateClient | null;
-    chainConnectedInfo: ChainInfo | null;
+    chainConnectedInfo: IChainConfig | null;
 }
 
 // * thunkFuntion.connectWallet  -------------------------------------------------------------
 export interface ThunkFcConnectWalletInput {
     notifier: NotifyFunctionInferface;
-    chainConfig: ChainInfo;
+    chainConfig: IChainConfig;
 }
 export interface ThunkFcConnectWalletOutput {
     address: string;
     vchainClient: Cosm | null;
-    cosmStargateClient: CosmStargate | null;
-    chainConnectedInfo: ChainInfo | null;
+    cosmStargateClient: SigningStargateClient | null;
+    chainConnectedInfo: IChainConfig | null;
 }
 
 // * thunkFuntion.sendDelegate  -------------------------------------------------------------

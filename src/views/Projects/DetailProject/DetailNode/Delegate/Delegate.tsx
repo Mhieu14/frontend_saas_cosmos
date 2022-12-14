@@ -20,7 +20,7 @@ function LineData({ title, value }: { title: string; value: string }) {
 export default function Delegate() {
     return (
         <Box>
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
                     <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3, boxShadow: 3 }}>
                         <Grid container spacing={2}>

@@ -48,7 +48,7 @@ export default function ModalAddNode({ projectId, updateData }: { projectId: str
     return (
         <DialogContent
             sx={{
-                minHeight: '500px',
+                // minHeight: '500px',
                 '& .MuiAutocomplete-popper': {
                     boxShadow: 3,
                     borderRadius: '10px',
