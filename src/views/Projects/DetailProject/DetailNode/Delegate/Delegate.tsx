@@ -1,55 +1,17 @@
-import { Alert, AlertTitle, Box, Button, Divider, FormControl, Grid, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
+import { Alert, AlertTitle, Box, Button, FormControl, Grid, InputAdornment, InputLabel, OutlinedInput, Typography } from '@mui/material';
+import { IDataNodeDetail } from 'src/api/nodes/type';
 import { BoxWrapper } from 'src/common/BoxWrapper';
-import { Table } from 'src/common/Table/Table';
-import { TableHeader } from 'src/common/Table/TableHeader';
-import { TableRow } from 'src/common/Table/TableRow';
+import ValidatorInfo from './ValidatorInfo';
+type Props = {
+    data: IDataNodeDetail;
+};
 
-function LineData({ title, value }: { title: string; value: string }) {
-    return (
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography variant="body1" color="text.secondary">
-                {title}
-            </Typography>
-            <Typography variant="body1" color="text.primary" sx={{ fontWeight: 500 }}>
-                {value}
-            </Typography>
-        </Box>
-    );
-}
-
-export default function Delegate() {
+export default function Delegate({ data }: Props) {
     return (
         <Box>
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
-                    <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3, boxShadow: 3 }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <LineData title="Validator:" value="Node 1" />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <LineData title="Chain ID:" value="Oraichain mainnet" />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <LineData title="Voting Power:" value="5%(1231token)" />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <LineData title="Self bonded:" value="1000 token" />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <LineData title="Address:" value="sdasdf...dfdff" />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <LineData title="Uptime:" value="100%" />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <LineData title="Commission:" value="1%" />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <LineData title="APR:" value="53.67%" />
-                            </Grid>
-                        </Grid>
-                    </BoxWrapper>
+                    <ValidatorInfo data={data} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3, boxShadow: 3 }}>

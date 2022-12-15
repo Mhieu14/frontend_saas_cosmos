@@ -4,12 +4,13 @@ import { useState } from 'react';
 import { IDataCreateNode } from 'src/api/nodes/type';
 import useNotifier from 'src/hooks/useNotifier';
 import { callApiNodes } from 'src/api/nodes/callApi';
+import { useModalContext } from 'src/contexts/modal-context';
 
 export default function ModalAddNode({ projectId, updateData }: { projectId: string; updateData: () => Promise<void> }) {
     const { state: networkState } = useNetworkSlice();
     const [dataPost, setDataPost] = useState<IDataCreateNode>({ nodeName: '', network: '', projectId: projectId });
     const { notifyError, notifySuccess } = useNotifier();
-
+    const { closeModal } = useModalContext();
     function changeDataPost(key: 'nodeName' | 'network' | 'projectId', value: string) {
         setDataPost((prev) => {
             return {
@@ -39,7 +40,8 @@ export default function ModalAddNode({ projectId, updateData }: { projectId: str
             const response = await callApiNodes.createProject(dataPost);
             console.log(response);
             updateData();
-            notifySuccess('Create node successful!');
+            notifySuccess('Request successful!');
+            closeModal();
         } catch (err) {
             console.log(err);
             notifyError((err as Error).message);

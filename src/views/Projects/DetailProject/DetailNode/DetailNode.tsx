@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { IDataNodeDetail } from 'src/api/nodes/type';
 import useNotifier from 'src/hooks/useNotifier';
 import { nodeService } from 'src/api/nodes/nodeService';
+import ChipNodeStatus from 'src/common/ChipNodeStatus';
 
 export default function DetailNode() {
     const { projectId, nodeId } = useParams();
@@ -58,7 +59,7 @@ export default function DetailNode() {
                             {data.nodeName || '---'}
                         </Typography>
                     )}
-                    <Chip label="Running" color="success" size="small"></Chip>
+                    <ChipNodeStatus status={data.status} />
 
                     <Typography variant="body1" sx={{ marginLeft: 'auto' }}>
                         <Box component={'span'} sx={{ color: 'text.secondary', mr: 1 }}>
@@ -67,7 +68,7 @@ export default function DetailNode() {
                         {loading ? (
                             <Skeleton sx={{ display: 'inline-block', mt: 1 }} variant="rounded" animation="wave" width={73} height={22} />
                         ) : (
-                            <b>{new Date(data.createdAt).toLocaleDateString()}</b>
+                            <b>{data.createdAt ? new Date(data.createdAt).toLocaleDateString() : '---'}</b>
                         )}
                     </Typography>
                 </Box>
@@ -96,7 +97,7 @@ export default function DetailNode() {
                                     <Skeleton variant="rounded" animation="wave" width={120} height={24} sx={{ mt: 1 }} />
                                 ) : (
                                     <Typography variant="h5" color={'text.primary'} sx={{ mt: 1 }}>
-                                        Full
+                                        {data.mode}
                                     </Typography>
                                 )}
                             </Box>
@@ -123,7 +124,11 @@ export default function DetailNode() {
                     <Skeleton variant="rounded" animation="wave" height={300} width="100%" sx={{ mt: 3 }} />
                 </>
             ) : (
-                <>{data.canCreateValidator ? <CreateValidator /> : <Delegate />}</>
+                <>
+                    {data.canCreateValidator ? <CreateValidator /> : null}
+                    {data.syncing ? <div>Node is syncing! This process take a long time!</div> : null}
+                    {data.validator ? <Delegate data={data} /> : null}
+                </>
             )}
         </Box>
     );

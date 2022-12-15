@@ -1,6 +1,7 @@
 import { Box, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { IOverviewNode } from 'src/api/project/type';
+import ChipNodeStatus from 'src/common/ChipNodeStatus';
 import { TableRow } from 'src/common/Table/TableRow';
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
 export default function NodeRow(props: Props) {
     const navigate = useNavigate();
     return (
-        <TableRow sx={{ mt: 2, minWidth: '1000px' }} onClick={() => navigate(`/projects/${props.projectId}/${props.data.idNode}`)}>
+        <TableRow sx={{ mt: 2, minWidth: '1000px', placeItems: 'center' }} onClick={() => navigate(`/projects/${props.projectId}/${props.data.idNode}`)}>
             <Grid item xs={2}>
                 {props.data.name}
             </Grid>
@@ -19,7 +20,7 @@ export default function NodeRow(props: Props) {
                 {props.data.network}
             </Grid>
             <Grid item xs={2}>
-                {props.data.status}
+                <ChipNodeStatus status={props.data.status} />
             </Grid>
             <Grid item xs={2}>
                 {props.data.mode}
