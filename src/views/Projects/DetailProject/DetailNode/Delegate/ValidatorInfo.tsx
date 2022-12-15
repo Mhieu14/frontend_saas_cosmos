@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import { IDataNodeDetail } from 'src/api/nodes/type';
 import { BoxWrapper } from 'src/common/BoxWrapper';
 import CopyTextBtn from 'src/common/CopyTextBtn';
-import { formatAddress } from 'src/utils/format';
+import { formatAddress, formatNumber } from 'src/utils/format';
 
 type Props = {
     data: IDataNodeDetail;
@@ -60,20 +60,27 @@ export default function ValidatorInfo({ data }: Props) {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <LineData title="Voting power:" value="5%(1231token)" />
+                    <LineData
+                        title="Voting power:"
+                        value={`${formatNumber(data.validator?.votingPercentage || 0, { fractionDigits: 6 })}% 
+                                (${formatNumber(data.validator?.votingPower, { fractionDigits: 2 })} 
+                                ${data.validator?.denom || 'token'})`}
+                    />
                 </Grid>
                 <Grid item xs={12}>
-                    <LineData title="Self bonded:" value="1000 token" />
-                </Grid>
-
-                <Grid item xs={12}>
-                    <LineData title="Uptime:" value="100%" />
+                    <LineData title="Self bonded:" value={`${formatNumber(data.validator?.selfBond)} ${data.validator?.denom || 'token'}`} />
                 </Grid>
                 <Grid item xs={12}>
-                    <LineData title="Commission:" value="1%" />
+                    <LineData title="Token price:" value={`$${formatNumber(data.validator?.price)}`} />
                 </Grid>
                 <Grid item xs={12}>
-                    <LineData title="APR:" value="53.67%" />
+                    <LineData title="Uptime:" value={`${data.validator?.uptime}%`} />
+                </Grid>
+                <Grid item xs={12}>
+                    <LineData title="Commission:" value={`${data.validator?.commission?.rate || '---'}%`} />
+                </Grid>
+                <Grid item xs={12}>
+                    <LineData title="APR:" value={`${formatNumber(data.validator?.apr, { fractionDigits: 2 })}%`} />
                 </Grid>
             </Grid>
         </BoxWrapper>

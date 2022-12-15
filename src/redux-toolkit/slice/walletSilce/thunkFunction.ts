@@ -1,25 +1,28 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkFcConnectWalletInput, ThunkFcConnectWalletOutput, ThunkFcSendDelegateInput, ThunkFcSignUserLoginInput } from './type';
+import { IConnectWalletInput, IConnectWalletOutput, ICreateValidatorInput, ISendDelegateInput, ISignUserLoginInput } from './type';
 import VchainCosm from '@tovchain/cosms';
 import { BaseProvider } from '@tovchain/cosms/build/main/lib/providers';
 import { Wallet } from '@tovchain/cosms/build/main/lib/wallet';
 import { BaseThunkApiProps } from 'src/redux-toolkit/stores';
 import { coin, GasPrice, SigningStargateClient, StdFee } from '@cosmjs/stargate';
 import Long from 'long';
+import { MsgCreateValidator } from 'cosmjs-types/cosmos/staking/v1beta1/tx';
+import Cosm from '@tovchain/cosms';
+import { fromBase64 } from '@cosmjs/encoding';
+import { baseDivident, BN, concatTypedArrays } from 'src/utils';
+import { callApiNodes } from 'src/api/nodes/callApi';
 
 export const thunkFuntion = {
-    connectWallet: createAsyncThunk<ThunkFcConnectWalletOutput, ThunkFcConnectWalletInput, BaseThunkApiProps>('wallet/connect-wallet', async (input, thunkApi) => {
+    connectWallet: createAsyncThunk<IConnectWalletOutput, IConnectWalletInput, BaseThunkApiProps>('wallet/connect-wallet', async (input, thunkApi) => {
         const {
             notifier: { notifyWarn, notifyError, notifySuccess },
-            chainConfig,
         } = input;
-
+        const { chainConnectedInfo: chainConfig } = thunkApi.getState().wallet;
         if (!window.keplr) {
             notifyWarn('You must install Keplr to continue!');
             return {
                 address: '',
                 vchainClient: null,
-                chainConnectedInfo: null,
                 cosmStargateClient: null,
             };
         } else {
@@ -33,7 +36,6 @@ export const thunkFuntion = {
                     return {
                         address: '',
                         vchainClient: null,
-                        chainConnectedInfo: null,
                         cosmStargateClient: null,
                     };
                 } else {
@@ -69,7 +71,6 @@ export const thunkFuntion = {
                 return {
                     address: wallet.address,
                     vchainClient: vChainCosm,
-                    chainConnectedInfo: chainConfig,
                     cosmStargateClient: _cosmStargateClient,
                 };
             } catch (err) {
@@ -77,13 +78,12 @@ export const thunkFuntion = {
                 return {
                     address: '',
                     vchainClient: null,
-                    chainConnectedInfo: null,
                     cosmStargateClient: null,
                 };
             }
         }
     }),
-    sendDelegate: createAsyncThunk<void, ThunkFcSendDelegateInput, BaseThunkApiProps>('wallet/send-delegate', async (input, thunkApi) => {
+    sendDelegate: createAsyncThunk<void, ISendDelegateInput, BaseThunkApiProps>('wallet/send-delegate', async (input, thunkApi) => {
         const { notifier, amount, validatorAddress } = input;
         const { notifyError, notifySuccess } = notifier;
         const { vchainClient, address, chainConnectedInfo, cosmStargateClient } = thunkApi.getState().wallet;
@@ -110,7 +110,79 @@ export const thunkFuntion = {
             }
         }
     }),
-    signUserLogin: createAsyncThunk<void, ThunkFcSignUserLoginInput, BaseThunkApiProps>('wallet/sign-user-login', async (input, thunkApi) => {
+    createValidator: createAsyncThunk<void, ICreateValidatorInput, BaseThunkApiProps>('wallet/create-validator', async (input, thunkApi) => {
+        const { notifier, nodePublicKey, dataEnter, nodeName, nodeId } = input;
+        const { notifyError, notifySuccess } = notifier;
+        const { vchainClient, address, chainConnectedInfo, cosmStargateClient } = thunkApi.getState().wallet;
+
+        if (!vchainClient || !cosmStargateClient) {
+            notifyError('You have not connected your wallet yet!');
+        } else {
+            try {
+                const denomStake = chainConnectedInfo?.stakeCurrency?.coinMinimalDenom || '';
+                const denomFee = chainConnectedInfo?.feeCurrencies[0]?.coinMinimalDenom || '';
+                const prefixCons = chainConnectedInfo.bech32Config.bech32PrefixValAddr;
+                const baseMinDivident = baseDivident(chainConnectedInfo.mintDecimal || 6);
+                const baseDecimalDivident = baseDivident(chainConnectedInfo.decimal || 6);
+                const fee: StdFee = {
+                    gas: '180000',
+                    amount: [{ amount: '0', denom: denomFee }],
+                };
+
+                const cosPubObject = {
+                    typeUrl: '/cosmos.crypto.ed25519.PubKey',
+                    value: nodePublicKey,
+                };
+
+                const addressHex = Cosm.utils.bech32.toHex(address);
+                const validatorAddress = Cosm.utils.bech32.toBech32(prefixCons, addressHex);
+
+                const pubPrefix = new Uint8Array([10, 32]);
+                const pubKeyBytes = fromBase64(cosPubObject.value);
+
+                const msgCreateValidator: MsgCreateValidator = {
+                    description: {
+                        moniker: nodeName,
+                        identity: 'fadfasdf',
+                        website: 'http://abc.xyz/',
+                        securityContact: '...',
+                        details: '...',
+                    },
+                    // decimal : 10^18
+                    commission: {
+                        rate: BN(dataEnter.commissionRate).times(baseMinDivident).toFixed(),
+                        maxRate: BN(dataEnter.commissionMaxRate).times(baseMinDivident).toFixed(),
+                        maxChangeRate: BN(dataEnter.commissionMaxChangeRate).times(baseMinDivident).toFixed(),
+                    },
+                    minSelfDelegation: BN(dataEnter.minSelf).times(baseMinDivident).toFixed(),
+                    delegatorAddress: address,
+                    validatorAddress: validatorAddress,
+                    pubkey: {
+                        typeUrl: '/cosmos.crypto.ed25519.PubKey',
+                        value: concatTypedArrays(pubPrefix, pubKeyBytes),
+                    },
+                    value: coin(BN(dataEnter.amountToken).times(baseDecimalDivident).toFixed(), denomStake),
+                };
+
+                const resCreateVali = await vchainClient.cosmos.staking.message.CreateValidator(msgCreateValidator);
+                console.log(resCreateVali);
+                const tx = await vchainClient.cosmos.staking.sendMessage(fee);
+                console.log(tx);
+
+                if (tx.code != 0) {
+                    notifyError(tx.rawLog || '');
+                } else {
+                    const resApi = await callApiNodes.createValidator(nodeId, { validatorAddress: validatorAddress, walletAddress: address });
+                    console.log(resApi.data);
+                    notifySuccess('Transaction successful!');
+                }
+            } catch (err) {
+                console.log(err);
+                notifyError('Transaction error!');
+            }
+        }
+    }),
+    signUserLogin: createAsyncThunk<void, ISignUserLoginInput, BaseThunkApiProps>('wallet/sign-user-login', async (input, thunkApi) => {
         const { notifier } = input;
         const { notifyWarn, notifySuccess, notifyError } = notifier;
         if (!window.keplr) {

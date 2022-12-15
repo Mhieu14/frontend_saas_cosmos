@@ -7,6 +7,11 @@ export interface IDataCreateNode {
     projectId: string;
 }
 
+export interface IDataCreateValidator {
+    validatorAddress: string;
+    walletAddress: string;
+}
+
 export interface IDataNodeDetail {
     nodeId: string;
     nodeName: string;
@@ -34,11 +39,20 @@ export interface IDataNodeDetail {
     validator: {
         validatorAddress: string;
         totalDelegated: string | number;
+        apr: string | number;
+        denom: string;
         commission: {
-            maxChangeRate: string | number;
-            maxRate: string | number;
-            rate: string | number;
+            maxChangeRate: number;
+            maxRate: number;
+            rate: number;
         };
+        price: number;
+        uptime: number;
+        selfBond: number;
+        totalBondedToken: number;
+        totalNotBondedTokens: number;
+        votingPercentage: number;
+        votingPower: number;
     } | null;
     operatorAddress: string | null;
 }

@@ -9,17 +9,27 @@ import { IDataNodeDetail } from 'src/api/nodes/type';
 import useNotifier from 'src/hooks/useNotifier';
 import { nodeService } from 'src/api/nodes/nodeService';
 import ChipNodeStatus from 'src/common/ChipNodeStatus';
+import { useAppDispatch } from 'src/redux-toolkit/stores';
+import { useWalletSlice } from 'src/redux-toolkit/slice/walletSilce/walletSlice';
 
 export default function DetailNode() {
     const { projectId, nodeId } = useParams();
     const [loading, setLoading] = useState<boolean>(true);
     const [data, setData] = useState<IDataNodeDetail>({} as IDataNodeDetail);
-    const { notifyError } = useNotifier();
+    const notifier = useNotifier();
+    const { notifyError } = notifier;
+    const dispatch = useAppDispatch();
+    const {
+        action: { setChainConnectedInfo, connectWallet },
+    } = useWalletSlice();
 
     async function getNode() {
         try {
             const response = await nodeService.getNode(nodeId || '');
             setData(response);
+
+            //TODO: set chain info will connected with client
+            dispatch(setChainConnectedInfo(response.chainInfo));
         } catch (err) {
             console.log(err);
             notifyError((err as Error).message || '');
@@ -30,6 +40,9 @@ export default function DetailNode() {
         (async () => {
             await getNode();
             setLoading(false);
+
+            //TODO: create client
+            dispatch(connectWallet({ notifier: notifier }));
         })();
         return () => {};
     }, []);
@@ -125,7 +138,7 @@ export default function DetailNode() {
                 </>
             ) : (
                 <>
-                    {data.canCreateValidator ? <CreateValidator /> : null}
+                    {data.canCreateValidator ? <CreateValidator nodeId={nodeId || ''} nodeName={data.nodeName} nodePublicKey={data.publicKey} updateData={getNode} /> : null}
                     {data.syncing ? <div>Node is syncing! This process take a long time!</div> : null}
                     {data.validator ? <Delegate data={data} /> : null}
                 </>

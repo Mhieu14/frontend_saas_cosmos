@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IDataCreateNode } from './type';
+import { IDataCreateNode, IDataCreateValidator } from './type';
 import { url } from './url';
 
 export const callApiNodes = {
@@ -8,5 +8,8 @@ export const callApiNodes = {
     },
     getNode: (nodeId: string) => {
         return axios.get(url.getNode(nodeId));
+    },
+    createValidator: (nodeId: string, dataPost: IDataCreateValidator) => {
+        return axios.post(url.createValidator(nodeId), { validator_address: dataPost.validatorAddress, wallet_address: dataPost.walletAddress });
     },
 };

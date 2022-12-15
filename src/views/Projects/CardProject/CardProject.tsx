@@ -1,9 +1,8 @@
-import { AutorenewOutlined, Done, ErrorOutline, MoreTimeOutlined } from '@mui/icons-material';
-import { Box, Button, Chip, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { IOverviewProjectData } from 'src/api/project/type';
 import { BoxWrapper } from 'src/common/BoxWrapper';
-import { NodeStatusType } from 'src/global.config';
+import ChipNodeStatus from 'src/common/ChipNodeStatus';
 
 export type CardProjectProps = {
     name: string;
@@ -38,7 +37,7 @@ export default function CardProject(props: { data: IOverviewProjectData; index: 
                         {data.name}
                     </Typography>
                 </Link>
-                <ChipStatus status={data.status} />
+                <ChipNodeStatus status={data.status} sx={{ mt: 1 }} />
                 <Typography
                     variant="body1"
                     color="text.secondary"
@@ -49,20 +48,4 @@ export default function CardProject(props: { data: IOverviewProjectData; index: 
             </Box>
         </BoxWrapper>
     );
-}
-
-function ChipStatus({ status }: { status: NodeStatusType }) {
-    if (status === 'CREATED') {
-        return <Chip sx={{ mt: 1 }} label={'Created'} color="success" size="small"></Chip>;
-    }
-    if (status === 'CREATE_FAIL') {
-        return <Chip sx={{ mt: 1 }} label={'Created fail'} color="error" size="small" />;
-    }
-    if (status === 'CREATE_PENDING') {
-        return <Chip sx={{ mt: 1 }} label={'Create pending'} color="warning" size="small" />;
-    }
-    if (status === 'CREATE_RETRYING') {
-        return <Chip sx={{ mt: 1 }} label={'Create retrying'} color="warning" size="small" />;
-    }
-    return <Chip label={'Unknow'} />;
 }
