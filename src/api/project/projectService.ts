@@ -15,6 +15,7 @@ export const projectService = {
                     projectId: item.project_id,
                     status: item.status,
                     userId: item.user_id,
+                    numberNode: item.total_nodes,
                 } as IOverviewProjectData;
             }),
         };
@@ -30,6 +31,7 @@ export const projectService = {
             projectId: item.project_id,
             status: item.status,
             userId: item.user_id,
+            numberNode: item.total_nodes,
             nodes: item.nodes.map((item: any) => {
                 return {
                     idNode: item.node_id,

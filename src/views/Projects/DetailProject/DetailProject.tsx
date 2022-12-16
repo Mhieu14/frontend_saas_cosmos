@@ -20,6 +20,7 @@ const initData: IDetailProjectData = {
     projectId: '',
     status: 'UNKNOW',
     userId: '',
+    numberNode: 0,
 };
 
 export default function DetailProject() {
