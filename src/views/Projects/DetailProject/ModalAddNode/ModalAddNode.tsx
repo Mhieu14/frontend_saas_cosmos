@@ -1,13 +1,16 @@
 import { Autocomplete, Button, DialogContent, TextField } from '@mui/material';
 import { useNetworkSlice } from 'src/redux-toolkit/slice/networkSlice/networkSlice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IDataCreateNode } from 'src/api/nodes/type';
 import useNotifier from 'src/hooks/useNotifier';
 import { callApiNodes } from 'src/api/nodes/callApi';
 import { useModalContext } from 'src/contexts/modal-context';
+import { IResponseGetListClouds } from 'src/api/cloud/type';
+import { cloudService } from 'src/api/cloud/cloudService';
 
 export default function ModalAddNode({ projectId, updateData }: { projectId: string; updateData: () => Promise<void> }) {
     const { state: networkState } = useNetworkSlice();
+    const [cloudList, setCloudList] = useState<IResponseGetListClouds>([]);
     const [dataPost, setDataPost] = useState<IDataCreateNode>({ nodeName: '', network: '', projectId: projectId });
     const { notifyError, notifySuccess } = useNotifier();
     const { closeModal } = useModalContext();
@@ -20,6 +23,15 @@ export default function ModalAddNode({ projectId, updateData }: { projectId: str
         });
     }
 
+    async function getCloudList() {
+        try {
+            const response = await cloudService.getList();
+            setCloudList(response);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     const networks = networkState.data.map((item) => {
         return {
             label: item.name + ' - ' + item.network,
@@ -27,12 +39,9 @@ export default function ModalAddNode({ projectId, updateData }: { projectId: str
         };
     });
 
-    const clouds = [
-        { label: 'fdsfsdf', key: 'fsdf' },
-        { label: 'wetwer', key: 'fsdf' },
-        { label: 'hsgerdf', key: 'fsdf' },
-        { label: 'hgggdg', key: 'fsdf' },
-    ];
+    useEffect(() => {
+        getCloudList();
+    }, []);
 
     async function addNodeFunc() {
         console.log(dataPost);
@@ -72,7 +81,7 @@ export default function ModalAddNode({ projectId, updateData }: { projectId: str
             />
             <br />
             <br />
-            <Autocomplete fullWidth disablePortal id="combo-box-clouds" options={clouds} renderInput={(params) => <TextField {...params} fullWidth label="Cloud provider" />} />
+            <Autocomplete fullWidth disablePortal id="combo-box-clouds" options={cloudList} renderInput={(params) => <TextField {...params} fullWidth label="Cloud provider" />} />
             <br />
             <br />
             <Button variant="contained" sx={{ margin: 'auto', display: 'block' }} onClick={addNodeFunc}>
