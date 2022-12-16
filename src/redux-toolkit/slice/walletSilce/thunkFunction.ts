@@ -138,6 +138,7 @@ export const thunkFuntion = {
                 const validatorAddress = Cosm.utils.bech32.toBech32(prefixCons, addressHex);
 
                 const pubPrefix = new Uint8Array([10, 32]);
+                console.log(cosPubObject.value);
                 const pubKeyBytes = fromBase64(cosPubObject.value);
 
                 const msgCreateValidator: MsgCreateValidator = {
@@ -154,7 +155,7 @@ export const thunkFuntion = {
                         maxRate: BN(dataEnter.commissionMaxRate).times(baseMinDivident).toFixed(),
                         maxChangeRate: BN(dataEnter.commissionMaxChangeRate).times(baseMinDivident).toFixed(),
                     },
-                    minSelfDelegation: BN(dataEnter.minSelf).times(baseMinDivident).toFixed(),
+                    minSelfDelegation: BN(dataEnter.minSelf).times(baseDecimalDivident).toFixed(),
                     delegatorAddress: address,
                     validatorAddress: validatorAddress,
                     pubkey: {
