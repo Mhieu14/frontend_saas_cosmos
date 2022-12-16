@@ -15,6 +15,9 @@ import { useWalletSlice } from 'src/redux-toolkit/slice/walletSilce/walletSlice'
 export default function DetailNode() {
     const { projectId, nodeId } = useParams();
     const [loading, setLoading] = useState<boolean>(true);
+    const {
+        state: { address, chainConnectedInfo },
+    } = useWalletSlice();
     const [data, setData] = useState<IDataNodeDetail>({} as IDataNodeDetail);
     const notifier = useNotifier();
     const { notifyError } = notifier;
@@ -23,26 +26,34 @@ export default function DetailNode() {
         action: { setChainConnectedInfo, connectWallet },
     } = useWalletSlice();
 
-    async function getNode() {
+    async function getNode(): Promise<boolean> {
         try {
             const response = await nodeService.getNode(nodeId || '');
             setData(response);
-
-            //TODO: set chain info will connected with client
-            dispatch(setChainConnectedInfo(response.chainInfo));
+            if (response.chainInfo) {
+                if (chainConnectedInfo.chainId != response.chainInfo.chainId || !address) {
+                    //TODO: set chain info will connected with client
+                    dispatch(setChainConnectedInfo(response.chainInfo));
+                    return true;
+                }
+            }
+            return false;
         } catch (err) {
             console.log(err);
             notifyError((err as Error).message || '');
+            return false;
         }
     }
 
     useEffect(() => {
         (async () => {
-            await getNode();
+            const willConnectWallet = await getNode();
             setLoading(false);
 
-            //TODO: create client
-            dispatch(connectWallet({ notifier: notifier }));
+            if (willConnectWallet) {
+                //TODO: create client
+                dispatch(connectWallet({ notifier: notifier }));
+            }
         })();
         return () => {};
     }, []);
