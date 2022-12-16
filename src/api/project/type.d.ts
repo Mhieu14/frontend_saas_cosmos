@@ -7,6 +7,7 @@ export interface IOverviewProjectData {
     projectId: string;
     status: NodeStatusType;
     userId: string;
+    numberNode: number;
 }
 
 export interface IResponseGetListProjects {

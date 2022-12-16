@@ -27,7 +27,7 @@ export default function ValidatorInfo({ data }: Props) {
         <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3, boxShadow: 3 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <LineData title="Chain ID:" value={data.chainInfo.chainId} />
+                    <LineData title="Chain ID:" value={data.chainInfo?.chainId || '---'} />
                 </Grid>
                 <Grid item xs={12}>
                     <LineData

@@ -16,7 +16,7 @@ export default function ConnectWalletBtn() {
     if (status.connectWallet === FetchingStatus.FETCHING) {
         return (
             <Button variant="contained">
-                Loading... <AccountBalanceWallet sx={{ ml: 1 }} />
+                Connecting... <AccountBalanceWallet sx={{ ml: 1 }} />
             </Button>
         );
     }

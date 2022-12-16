@@ -37,7 +37,7 @@ export default function CardProject(props: { data: IOverviewProjectData; index: 
                         {data.name}
                     </Typography>
                 </Link>
-                <ChipNodeStatus status={data.status} sx={{ mt: 1 }} />
+                <Typography sx={{ mt: 1 }}>{data.createdAt ? new Date(data.createdAt).toLocaleDateString() : '---'}</Typography>
                 <Typography
                     variant="body1"
                     color="text.secondary"
@@ -45,6 +45,7 @@ export default function CardProject(props: { data: IOverviewProjectData; index: 
                 >
                     {data.description}
                 </Typography>
+                <Typography>Number of Nodes: {data.numberNode}</Typography>
             </Box>
         </BoxWrapper>
     );

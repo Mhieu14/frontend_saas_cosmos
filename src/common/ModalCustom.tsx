@@ -18,13 +18,13 @@ export default function ModalCustom() {
                 [theme.breakpoints.down('xsm')]: { '& .MuiPaper-root': { maxWidth: '100%!important', margin: '0!important', width: 'calc(100% - 16px)' } },
             })}
         >
-            <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', py: 1, alignItems: 'center', px: { xs: 2, xsm: 3 } }}>
+            <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', py: 1.3, alignItems: 'center', px: { xs: 2, xsm: 3 } }}>
                 <Typography variant="h5" color={'text.primary'}>
                     {title}
                 </Typography>
-                <IconButton onClick={closeDialog} sx={{ bgcolor: 'divider' }}>
-                    <Clear />
-                </IconButton>
+                {/* <IconButton > */}
+                <Clear onClick={closeDialog} sx={{ color: '#595F5A', fontSize: '30px', cursor: 'pointer' }} />
+                {/* </IconButton> */}
             </DialogTitle>
             {content}
         </Dialog>
