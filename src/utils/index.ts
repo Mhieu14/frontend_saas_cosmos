@@ -38,3 +38,16 @@ export function handleError(error: any, notify?: (msg: string) => void) {
 export function toUSD(amount?: string | number, price?: string | number): string {
     return BN(amount).times(BN(price)).toString();
 }
+
+export function concatTypedArrays(a: any, b: any) {
+    // a, b TypedArray of same type
+    let c = new a.constructor(a.length + b.length);
+    c.set(a, 0);
+    c.set(b, a.length);
+    return c;
+}
+
+export function baseDivident(exp: number) {
+    return BN(10).pow(exp);
+    // return Math.pow(10, exp);
+}

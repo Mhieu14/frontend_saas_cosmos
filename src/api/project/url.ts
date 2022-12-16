@@ -1,4 +1,4 @@
-const BASE_VALIDATOR_SERVICE = process.env.REACT_APP_VALIDATOR_SERVICE;
+import { BASE_VALIDATOR_SERVICE } from '../BASE_API';
 
 export const url = {
     getListProjects: (page: number = 1, itemPerPage: number = 12) => {

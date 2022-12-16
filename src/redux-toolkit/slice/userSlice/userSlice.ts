@@ -32,5 +32,5 @@ const userSlice = createSlice({
 export const userSliceReducer = userSlice.reducer;
 
 export const useUserSlice = () => {
-    return { state: useSelector((state: RootState) => state.userSliceReducer), action: { ...userSlice.actions, ...thunkFuntion } };
+    return { state: useSelector((state: RootState) => state.user), action: { ...userSlice.actions, ...thunkFuntion } };
 };

@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import store from 'src/redux-toolkit/stores';
 import { ModalProvider } from 'src/contexts/modal-context';
 import ModalCustom from 'src/common/ModalCustom';
+import AutoFetchData from './AutoFetchData/AutoFetchData';
 
 const notistackRef = React.createRef<SnackbarProvider>();
 const onClickDismiss = (key: SnackbarKey) => () => {
@@ -32,9 +33,12 @@ export default function Layout() {
                 >
                     <ModalProvider>
                         <Provider store={store}>
-                            <Sidebar />
-                            <Content />
-                            <ModalCustom />
+                            <>
+                                <AutoFetchData />
+                                <Sidebar />
+                                <Content />
+                                <ModalCustom />
+                            </>
                         </Provider>
                     </ModalProvider>
                 </SnackbarProvider>
