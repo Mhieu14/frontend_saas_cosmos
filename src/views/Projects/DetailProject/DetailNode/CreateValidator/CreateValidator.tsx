@@ -23,7 +23,7 @@ type Props = {
     nodeId: string;
     nodeName: string;
     nodePublicKey: string;
-    updateData: () => Promise<void>;
+    updateData: () => Promise<boolean>;
 };
 
 export default function CreateValidator({ nodeId, nodeName, nodePublicKey, updateData }: Props) {
@@ -34,13 +34,37 @@ export default function CreateValidator({ nodeId, nodeName, nodePublicKey, updat
     const notifier = useNotifier();
     const [dataPost, setDataPost] = useState<IEnterDataCreateValidator>(initData);
 
-    function changeValuePost(key: IKeyDataPost, value: string | number) {
-        setDataPost((prev) => {
-            return {
-                ...prev,
-                [key]: value,
-            };
-        });
+    function changeValuePost(key: IKeyDataPost, value: string) {
+        const numberValue = Number(value);
+        if (numberValue >= 0) {
+            const afterComma = value.split('.')[1];
+            if (!afterComma || afterComma.length < 7) {
+                setDataPost((prev) => {
+                    return {
+                        ...prev,
+                        [key]: value,
+                    };
+                });
+            }
+        } else {
+            if (isNaN(numberValue)) {
+                if (value == '.') {
+                    setDataPost((prev) => {
+                        return {
+                            ...prev,
+                            [key]: '0.',
+                        };
+                    });
+                }
+            } else {
+                setDataPost((prev) => {
+                    return {
+                        ...prev,
+                        [key]: '0',
+                    };
+                });
+            }
+        }
     }
 
     async function postData() {
