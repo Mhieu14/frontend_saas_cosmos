@@ -1,7 +1,10 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField, Typography } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { userService } from 'src/api/user/userService';
 import { imagePath } from 'src/constants/ImagePath';
+import useNotifier from 'src/hooks/useNotifier';
 
 interface State {
     acount: string;
@@ -10,6 +13,8 @@ interface State {
 }
 
 export default function FormLogin() {
+    const { notifyError, notifySuccess } = useNotifier();
+    const navigate = useNavigate();
     const [values, setValues] = React.useState<State>({
         acount: '',
         password: '',
@@ -30,6 +35,21 @@ export default function FormLogin() {
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
+
+    async function login() {
+        try {
+            const response = await userService.login({ password: values.password, username: values.acount });
+            localStorage.setItem('token', response.token);
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1000);
+            notifySuccess('Login successful!');
+        } catch (err: any) {
+            console.log(err);
+            notifyError(err.response?.data?.error?.message || (err as Error).message);
+        }
+    }
+
     return (
         <Box
             sx={{
@@ -54,7 +74,7 @@ export default function FormLogin() {
             <Typography color="secondary">to start working!</Typography>
 
             <Box sx={{ mt: 5, maxWidth: '280px', mx: 'auto', '& .MuiFormLabel-root': { color: '#061544!important' } }}>
-                <TextField variant="standard" label="Acount" fullWidth name="acount" value={values.acount} onChange={handleChange('acount')} />
+                <TextField variant="standard" label="Acount" fullWidth name="account" value={values.acount} onChange={handleChange('acount')} />
                 <FormControl sx={{ mt: 4 }} variant="standard" fullWidth>
                     <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                     <Input
@@ -71,7 +91,7 @@ export default function FormLogin() {
                         }
                     />
                 </FormControl>
-                <Button sx={{ mt: 4 }} variant="contained">
+                <Button sx={{ mt: 4 }} variant="contained" onClick={login}>
                     Login
                 </Button>
 
