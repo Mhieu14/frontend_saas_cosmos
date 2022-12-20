@@ -1,3 +1,17 @@
+## Some type code need to remember
+
+==> get key of object is type input of function
+
+```ts
+interface IData {
+    key1: typeValue1;
+    key2: typeValue2;
+    key3: typeValue3;
+    key4: typeValue4;
+}
+type KeyofIData = keyof IData;
+```
+
 ## Redux slice template
 
 ```ts

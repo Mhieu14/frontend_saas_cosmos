@@ -13,7 +13,6 @@ export default function FormLogin() {
     const [values, setValues] = React.useState<State>({
         acount: '',
         password: '',
-
         showPassword: false,
     });
 
@@ -35,9 +34,9 @@ export default function FormLogin() {
         <Box
             sx={{
                 background: 'rgba(255,255,255,0.1)',
-                backdropFilter: 'blur(50px)',
+                backdropFilter: 'blur(70px)',
                 width: '50%',
-                minWidth: '270px',
+                minWidth: '280px',
                 minHeight: '550px',
                 borderRadius: '20px',
                 textAlign: 'center',
@@ -45,18 +44,18 @@ export default function FormLogin() {
                 boxShadow: '0px 45px 100px #44759d45',
             }}
         >
-            <Typography color="#061544" sx={{ fontWeight: '500', mb: 1 }}>
+            <Typography color="#061544" sx={{ fontWeight: '500', mb: 1, mt: 1 }}>
                 Welcome to
             </Typography>
-            <img src={imagePath.LOGO_LONG_BLUE} alt="logo vchain" width={170} />
+            <img src={imagePath.LOGO_BLUE_VERTICLE} alt="logo vchain" width={130} />
             <Typography variant="h5" sx={{ color: '#091846', fontWeight: '600', mt: 2, mb: 1 }}>
                 Sign up
             </Typography>
-            <Typography color="text.secondary">to start working!</Typography>
+            <Typography color="secondary">to start working!</Typography>
 
-            <Box sx={{ mt: 5, maxWidth: '270px', mx: 'auto', '& .MuiFormLabel-root': { color: '#061544!important' } }}>
+            <Box sx={{ mt: 5, maxWidth: '280px', mx: 'auto', '& .MuiFormLabel-root': { color: '#061544!important' } }}>
                 <TextField variant="standard" label="Acount" fullWidth name="acount" value={values.acount} onChange={handleChange('acount')} />
-                <FormControl sx={{ mt: 5 }} variant="standard" fullWidth>
+                <FormControl sx={{ mt: 4 }} variant="standard" fullWidth>
                     <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                     <Input
                         id="standard-adornment-password"
@@ -65,7 +64,7 @@ export default function FormLogin() {
                         onChange={handleChange('password')}
                         endAdornment={
                             <InputAdornment position="end">
-                                <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                                <IconButton aria-label="toggle password visibility" sx={{ mb: 1 }} onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
                                     {values.showPassword ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
                             </InputAdornment>
@@ -75,6 +74,8 @@ export default function FormLogin() {
                 <Button sx={{ mt: 4 }} variant="contained">
                     Login
                 </Button>
+
+                <Typography sx={{ mt: 5 }}>Don't have account? Sign up here!</Typography>
             </Box>
         </Box>
     );
