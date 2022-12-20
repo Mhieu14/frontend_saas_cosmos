@@ -11,6 +11,7 @@ import { nodeService } from 'src/api/nodes/nodeService';
 import ChipNodeStatus from 'src/common/ChipNodeStatus';
 import { useAppDispatch } from 'src/redux-toolkit/stores';
 import { useWalletSlice } from 'src/redux-toolkit/slice/walletSilce/walletSlice';
+import { imagePath } from 'src/constants/ImagePath';
 
 export default function DetailNode() {
     const { projectId, nodeId } = useParams();
@@ -150,7 +151,12 @@ export default function DetailNode() {
             ) : (
                 <>
                     {data.canCreateValidator ? <CreateValidator nodeId={nodeId || ''} nodeName={data.nodeName} nodePublicKey={data.publicKey} updateData={getNode} /> : null}
-                    {data.syncing ? <div>Node is syncing! This process take a long time!</div> : null}
+                    {data.syncing ? (
+                        <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3, boxShadow: 3, textAlign: 'center' }}>
+                            <img src={imagePath.DATA_SYNC} alt="Node is syncing" style={{ margin: '24px auto', display: 'block', width: '300px' }} />
+                            Node is syncing! This process take a long time!
+                        </BoxWrapper>
+                    ) : null}
                     {data.validator ? <Delegate data={data} /> : null}
                 </>
             )}
