@@ -1,5 +1,5 @@
-import { NavigateNext } from '@mui/icons-material';
-import { Box, Breadcrumbs, Chip, Grid, Skeleton, Typography } from '@mui/material';
+import { DataSaverOnOutlined, KeyboardDoubleArrowUp, NavigateNext } from '@mui/icons-material';
+import { Box, Breadcrumbs, Button, Chip, Grid, Skeleton, Typography } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import { BoxWrapper } from 'src/common/BoxWrapper';
 import CreateValidator from './CreateValidator/CreateValidator';
@@ -61,22 +61,30 @@ export default function DetailNode() {
 
     return (
         <Box>
-            <Breadcrumbs separator={<NavigateNext fontSize="small" />} aria-label="breadcrumb">
-                <Link to={'/projects'} style={{ textDecoration: 'none' }}>
-                    <Typography color="text.secondary">Projects</Typography>
-                </Link>
-                <Link to={`/projects/${projectId}`} style={{ textDecoration: 'none' }}>
-                    {loading ? <Skeleton variant="text" animation="wave" width={150} height={22} /> : <Typography color="text.secondary">{data.project?.name || '---'}</Typography>}
-                </Link>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+                <Breadcrumbs separator={<NavigateNext fontSize="small" />} aria-label="breadcrumb">
+                    <Link to={'/projects'} style={{ textDecoration: 'none' }}>
+                        <Typography color="text.secondary">Projects</Typography>
+                    </Link>
+                    <Link to={`/projects/${projectId}`} style={{ textDecoration: 'none' }}>
+                        {loading ? <Skeleton variant="text" animation="wave" width={150} height={22} /> : <Typography color="text.secondary">{data.project?.name || '---'}</Typography>}
+                    </Link>
 
-                {loading ? <Skeleton variant="text" animation="wave" width={150} height={22} /> : <Typography color="text.primary">{data.nodeName || '---'}</Typography>}
-            </Breadcrumbs>
-
-            <BoxWrapper sx={{ mt: 2, bgcolor: 'background.paper', boxShadow: 3 }}>
-                <Typography variant="body1" color="text.secondary" sx={{ mr: 1 }}>
-                    Detail node
+                    {loading ? <Skeleton variant="text" animation="wave" width={150} height={22} /> : <Typography color="text.primary">{data.nodeName || '---'}</Typography>}
+                </Breadcrumbs>
+                <Typography variant="body1" sx={{ marginLeft: 'auto' }}>
+                    <Box component={'span'} sx={{ color: 'text.secondary', mr: 1 }}>
+                        Created at:
+                    </Box>
+                    {loading ? (
+                        <Skeleton sx={{ display: 'inline-block', mt: 1 }} variant="rounded" animation="wave" width={73} height={22} />
+                    ) : (
+                        <b>{data.createdAt ? new Date(data.createdAt).toLocaleDateString() : '---'}</b>
+                    )}
                 </Typography>
-                <Box sx={{ display: 'flex', placeItems: 'center', flexWrap: 'wrap' }}>
+            </Box>
+            <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'start', flexWrap: 'wrap' }}>
+                <Box>
                     {loading ? (
                         <Skeleton variant="rounded" animation="wave" width={120} height={35} sx={{ mr: 1 }} />
                     ) : (
@@ -85,18 +93,35 @@ export default function DetailNode() {
                         </Typography>
                     )}
                     <ChipNodeStatus status={data.status} />
-
-                    <Typography variant="body1" sx={{ marginLeft: 'auto' }}>
-                        <Box component={'span'} sx={{ color: 'text.secondary', mr: 1 }}>
-                            Created at:
-                        </Box>
-                        {loading ? (
-                            <Skeleton sx={{ display: 'inline-block', mt: 1 }} variant="rounded" animation="wave" width={73} height={22} />
-                        ) : (
-                            <b>{data.createdAt ? new Date(data.createdAt).toLocaleDateString() : '---'}</b>
-                        )}
-                    </Typography>
                 </Box>
+                {data.canCreateValidator ? (
+                    <Button
+                        variant="contained"
+                        color="success"
+                        sx={{ color: 'white', marginLeft: 'auto' }}
+                        startIcon={<KeyboardDoubleArrowUp />}
+                        // onClick={() => openModal('Add Node', <ModalAddNode updateData={getProject} projectId={projectId || ''} />)}
+                    >
+                        Upgrade
+                    </Button>
+                ) : null}
+                {data.validator ? (
+                    <Button
+                        variant="contained"
+                        color="success"
+                        sx={{ color: 'white', marginLeft: 'auto' }}
+                        startIcon={<DataSaverOnOutlined />}
+                        // onClick={() => openModal('Add Node', <ModalAddNode updateData={getProject} projectId={projectId || ''} />)}
+                    >
+                        Delegate
+                    </Button>
+                ) : null}
+            </Box>
+            <BoxWrapper sx={{ mt: 2, bgcolor: 'background.paper', boxShadow: 3 }}>
+                {/* <Typography variant="body1" color="text.secondary" sx={{ mr: 1 }}>
+                    Detail node
+                </Typography> */}
+
                 <Box sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={4}>
