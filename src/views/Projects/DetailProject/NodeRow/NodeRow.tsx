@@ -13,16 +13,16 @@ export default function NodeRow(props: Props) {
     const navigate = useNavigate();
     return (
         <TableRow sx={{ mt: 2, minWidth: '1000px', placeItems: 'center' }} onClick={() => navigate(`/projects/${props.projectId}/${props.data.idNode}`)}>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
                 {props.data.name}
             </Grid>
             <Grid item xs={2}>
                 {props.data.network}
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={1.5}>
                 <ChipNodeStatus status={props.data.status} />
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={1.5}>
                 {props.data.mode}
             </Grid>
             <Grid item xs={2}>

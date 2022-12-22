@@ -1,6 +1,7 @@
 import { Alert, Box, Button, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { BoxWrapper } from 'src/common/BoxWrapper';
+import LoadingButton from 'src/common/LoadingButton/LoadingButton';
 import useNotifier from 'src/hooks/useNotifier';
 import { useWalletSlice } from 'src/redux-toolkit/slice/walletSilce/walletSlice';
 import { useAppDispatch } from 'src/redux-toolkit/stores';
@@ -33,6 +34,7 @@ export default function CreateValidator({ nodeId, nodeName, nodePublicKey, updat
     } = useWalletSlice();
     const notifier = useNotifier();
     const [dataPost, setDataPost] = useState<IEnterDataCreateValidator>(initData);
+    const [loading, setLoading] = useState<boolean>(false);
 
     function changeValuePost(key: IKeyDataPost, value: string) {
         const numberValue = Number(value);
@@ -68,9 +70,11 @@ export default function CreateValidator({ nodeId, nodeName, nodePublicKey, updat
     }
 
     async function postData() {
+        setLoading(true);
         console.log(dataPost);
         await dispatch(createValidator({ notifier: notifier, nodeId: nodeId, dataEnter: dataPost, nodeName: nodeName, nodePublicKey: nodePublicKey }));
         updateData();
+        setLoading(false);
     }
 
     return (
@@ -117,9 +121,9 @@ export default function CreateValidator({ nodeId, nodeName, nodePublicKey, updat
                     fullWidth
                     sx={{ maxWidth: '450px', mt: 2, mx: 'auto' }}
                 ></TextField>
-                <Button variant="contained" sx={{ display: 'block', mx: 'auto', mt: 2 }} onClick={postData}>
+                <LoadingButton variant="contained" sx={{ display: 'block', mx: 'auto', mt: 2 }} onClick={postData} disabled={loading}>
                     Create validator
-                </Button>
+                </LoadingButton>
             </Box>
         </BoxWrapper>
     );

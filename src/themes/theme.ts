@@ -113,7 +113,7 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
             divider: getColor('#7d7d89', '#dfdfdf'),
             background: {
                 sidebar: getColor('#00000000', '#FFFFFF'),
-                paper: getColor('#1c275461', '#FFFFFF'),
+                paper: getColor('#1c2754', '#FFFFFF'),
                 default: getColor('#131c3c', '#f4f6f8'),
                 primary: getColor('#031527', '#FFFFFF'),
                 secondary: getColor('#07111C', '#FFFFFF'),

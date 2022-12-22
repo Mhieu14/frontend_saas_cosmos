@@ -21,6 +21,9 @@ export default function ChipNodeStatus(props: Props) {
     if (status === 'UNKNOW') {
         return <Chip label="Unknow" variant={variant} color="secondary" size={size} sx={sx} />;
     }
+    if (status === 'SYNCING') {
+        return <Chip label="Syncing" variant={variant} color="info" size={size} sx={sx} />;
+    }
 
     return <Chip label="Pending" variant={variant} color="warning" size={size} sx={sx} />;
 }

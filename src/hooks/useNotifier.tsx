@@ -20,7 +20,6 @@ export const INFO_TOP_CENTER: SnackbarOptions = {
 export const SUCCESS_TOP_CENTER: SnackbarOptions = {
     variant: 'success',
     anchorOrigin: { vertical: 'top', horizontal: 'center' },
-    autoHideDuration: 1500,
 };
 
 export const SUCCESS_BOTTOM_CENTER: SnackbarOptions = {
@@ -36,20 +35,20 @@ export const SUCCESS_BOTTOM_RIGHT: SnackbarOptions = {
 export default function useNotifier() {
     const { enqueueSnackbar } = useSnackbar();
 
-    const notifyError = (msg: string) => {
-        enqueueSnackbar(msg, ERR_TOP_CENTER);
+    const notifyError = (msg: string, options?: OptionsObject | undefined) => {
+        enqueueSnackbar(msg, { ...ERR_TOP_CENTER, ...options });
     };
 
-    const notifySuccess = (msg: string) => {
-        enqueueSnackbar(msg, SUCCESS_TOP_CENTER);
+    const notifySuccess = (msg: string, options?: OptionsObject | undefined) => {
+        enqueueSnackbar(msg, { ...SUCCESS_TOP_CENTER, ...options });
     };
 
-    const notifyInfo = (msg: string) => {
-        enqueueSnackbar(msg, INFO_TOP_CENTER);
+    const notifyInfo = (msg: string, options?: OptionsObject | undefined) => {
+        enqueueSnackbar(msg, { ...INFO_TOP_CENTER, ...options });
     };
 
-    const notifyWarn = (msg: string) => {
-        enqueueSnackbar(msg, WARNING_TOP_CENTER);
+    const notifyWarn = (msg: string, options?: OptionsObject | undefined) => {
+        enqueueSnackbar(msg, { ...WARNING_TOP_CENTER, ...options });
     };
 
     return {
@@ -61,8 +60,8 @@ export default function useNotifier() {
 }
 
 export interface NotifyFunctionInferface {
-    notifyError: (msg: string) => void;
-    notifyInfo: (msg: string) => void;
-    notifySuccess: (msg: string) => void;
-    notifyWarn: (msg: string) => void;
+    notifyError: (msg: string, options?: OptionsObject | undefined) => void;
+    notifyInfo: (msg: string, options?: OptionsObject | undefined) => void;
+    notifySuccess: (msg: string, options?: OptionsObject | undefined) => void;
+    notifyWarn: (msg: string, options?: OptionsObject | undefined) => void;
 }

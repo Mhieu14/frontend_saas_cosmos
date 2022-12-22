@@ -80,16 +80,16 @@ export default function DetailProject() {
                     Nodes
                 </Typography>
                 <TableHeader sx={{ minWidth: '1000px' }}>
-                    <Grid item xs={2}>
+                    <Grid item xs={3}>
                         Node name
                     </Grid>
                     <Grid item xs={2}>
                         Network
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={1.5}>
                         Status
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={1.5}>
                         Mode
                     </Grid>
                     <Grid item xs={2}>
