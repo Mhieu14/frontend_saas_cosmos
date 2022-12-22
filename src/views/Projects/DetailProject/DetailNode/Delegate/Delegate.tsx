@@ -10,7 +10,7 @@ export default function Delegate({ data }: Props) {
     return (
         <Box>
             <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                     <ValidatorInfo data={data} />
                 </Grid>
             </Grid>

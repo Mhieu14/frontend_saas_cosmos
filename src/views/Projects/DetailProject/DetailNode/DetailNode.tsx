@@ -124,23 +124,9 @@ export default function DetailNode() {
                     </Button>
                 ) : null}
             </Box>
-
+            {data.validator ? <Delegate data={data} /> : null}
             <Box sx={{ mt: 2 }}>
                 <Grid container spacing={3}>
-                    {/* <Grid item xs={12}>
-                        <BoxWrapper sx={{ bgcolor: 'background.paper', boxShadow: 3 }}>
-                            <Typography variant="body1" color={'text.secondary'}>
-                                Cloud Provider:
-                            </Typography>
-                            {loading ? (
-                                <Skeleton variant="rounded" animation="wave" width={120} height={24} sx={{ mt: 1 }} />
-                            ) : (
-                                <Typography variant="h5" color={'text.primary'} sx={{ mt: 1 }}>
-                                    {data.cloudProvider?.name}
-                                </Typography>
-                            )}
-                        </BoxWrapper>
-                    </Grid> */}
                     <Grid item xs={12} xsm={6} lg={4}>
                         <BoxWrapper sx={{ bgcolor: 'background.paper', boxShadow: 3 }}>
                             <Typography variant="h4" color={'text.primary'} sx={{ mb: 2 }}>
@@ -150,10 +136,10 @@ export default function DetailNode() {
                                 <Skeleton variant="rounded" animation="wave" width={'100%'} height={124} sx={{ mt: 1 }} />
                             ) : (
                                 <Box>
-                                    <LineData title="Name:" value={data.chainStakeInfo.name} sx={{ mt: 1 }} />
-                                    <LineData title="Bonded Tokens:" sx={{ mt: 1 }} value={`${data.chainStakeInfo.tokenBonded} / ${data.chainStakeInfo.totalToken}`} />
-                                    <LineData title="Staking APR:" sx={{ mt: 1 }} value={`${data.chainStakeInfo.apr}`} />
-                                    <LineData title="Token price:" sx={{ mt: 1 }} value={`$${data.chainStakeInfo.price}`} />
+                                    <LineData title="Name:" sx={{ mt: 1.5 }} value={data.chainStakeInfo.name} />
+                                    <LineData title="Bonded Tokens:" sx={{ mt: 1.5 }} value={`${data.chainStakeInfo.tokenBonded} / ${data.chainStakeInfo.totalToken}`} />
+                                    <LineData title="Staking APR:" sx={{ mt: 1.5 }} value={`${data.chainStakeInfo.apr}`} />
+                                    <LineData title="Token price:" sx={{ mt: 1.5 }} value={`$${data.chainStakeInfo.price}`} />
                                 </Box>
                             )}
                         </BoxWrapper>
@@ -170,10 +156,10 @@ export default function DetailNode() {
                                                 Monitoring
                                             </Typography>
                                             <Box>
-                                                <LineData title="CPU:" value={`${data.monitoring.cpuPercentage}%`} sx={{ mt: 1 }} />
-                                                <LineData title="RAM:" sx={{ mt: 1 }} value={`${data.monitoring.ramPercentage}%`} />
-                                                <LineData title="Cores:" sx={{ mt: 1 }} value={`${data.monitoring.cpuCount}`} />
-                                                <LineData title="Total ram:" sx={{ mt: 1 }} value={`${data.monitoring.ramTotal}`} />
+                                                <LineData title="CPU:" sx={{ mt: 1.5 }} value={`${data.monitoring.cpuPercentage}%`} />
+                                                <LineData title="RAM:" sx={{ mt: 1.5 }} value={`${data.monitoring.ramPercentage}%`} />
+                                                <LineData title="Cores:" sx={{ mt: 1.5 }} value={`${data.monitoring.cpuCount}`} />
+                                                <LineData title="Total ram:" sx={{ mt: 1.5 }} value={`${data.monitoring.ramTotal}`} />
                                             </Box>
                                         </BoxWrapper>
                                     </>
@@ -195,8 +181,8 @@ export default function DetailNode() {
                                                 Endpoint
                                             </Typography>
                                             <Box>
-                                                <LineData title="LCD:" value={`${data.endpoint.lcd}`} sx={{ mt: 1 }} />
-                                                <LineData title="RPC:" sx={{ mt: 1 }} value={`${data.endpoint.rpc}`} />
+                                                <LineData title="LCD:" sx={{ mt: 1.5 }} value={`${data.endpoint.lcd}`} />
+                                                <LineData title="RPC:" sx={{ mt: 1.5 }} value={`${data.endpoint.rpc}`} />
                                             </Box>
                                         </BoxWrapper>
                                     </>
@@ -218,11 +204,11 @@ export default function DetailNode() {
                                                 Sync
                                             </Typography>
                                             <Box>
-                                                <LineData title="Status:" value={`Synced`} sx={{ mt: 1 }} />
-                                                <LineData title="Lastest Height:" sx={{ mt: 1 }} value={`${data.syncInfo.lastestHeight}`} />
-                                                <LineData title="Lastest Time:" sx={{ mt: 1 }} value={`${formatDate(data.syncInfo.lastestTime, 'hh:mm b, d/M/yyyy')}`} />
-                                                <LineData title="Earliest Height:" sx={{ mt: 1 }} value={`${data.syncInfo.earliestHeight}`} />
-                                                <LineData title="Earliest Time:" sx={{ mt: 1 }} value={`${formatDate(data.syncInfo.earliestTime, 'hh:mm b, d/M/yyyy')}`} />
+                                                <LineData title="Status:" sx={{ mt: 1.5 }} value={`Synced`} />
+                                                <LineData title="Lastest Height:" sx={{ mt: 1.5 }} value={`${data.syncInfo.lastestHeight}`} />
+                                                <LineData title="Lastest Time:" sx={{ mt: 1.5 }} value={`${formatDate(data.syncInfo.lastestTime, 'hh:mm b, d/M/yyyy')}`} />
+                                                <LineData title="Earliest Height:" sx={{ mt: 1.5 }} value={`${data.syncInfo.earliestHeight}`} />
+                                                <LineData title="Earliest Time:" sx={{ mt: 1.5 }} value={`${formatDate(data.syncInfo.earliestTime, 'hh:mm b, d/M/yyyy')}`} />
                                             </Box>
                                         </BoxWrapper>
                                     </>
@@ -247,7 +233,6 @@ export default function DetailNode() {
                             Node is syncing! This process take a long time!
                         </BoxWrapper>
                     ) : null}
-                    {data.validator ? <Delegate data={data} /> : null}
                 </>
             )}
         </Box>

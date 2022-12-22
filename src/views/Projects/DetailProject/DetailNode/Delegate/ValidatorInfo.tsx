@@ -11,7 +11,7 @@ type Props = {
 
 function LineData({ title, value }: { title: string; value: ReactNode }) {
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
             <Typography variant="body1" color="text.secondary">
                 {title}
             </Typography>
@@ -25,11 +25,13 @@ function LineData({ title, value }: { title: string; value: ReactNode }) {
 export default function ValidatorInfo({ data }: Props) {
     return (
         <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3, boxShadow: 3 }}>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
+            <Typography variant="h4" color={'text.primary'} sx={{ mb: 0 }}>
+                Validator information
+            </Typography>
+            <Grid container rowSpacing={3} columnSpacing={8}>
+                <Grid item xs={12} md={6}>
                     <LineData title="Chain ID:" value={data.chainInfo?.chainId || '---'} />
-                </Grid>
-                <Grid item xs={12}>
+
                     <LineData
                         title="Validator address:"
                         value={
@@ -43,8 +45,7 @@ export default function ValidatorInfo({ data }: Props) {
                             )
                         }
                     />
-                </Grid>
-                <Grid item xs={12}>
+
                     <LineData
                         title="Operator address:"
                         value={
@@ -58,28 +59,23 @@ export default function ValidatorInfo({ data }: Props) {
                             )
                         }
                     />
-                </Grid>
-                <Grid item xs={12}>
+
                     <LineData
                         title="Voting power:"
                         value={`${formatNumber(data.validator?.votingPercentage || 0, { fractionDigits: 6 })}% 
                                 (${formatNumber(data.validator?.votingPower, { fractionDigits: 2 })} 
                                 ${data.validator?.denom || 'token'})`}
                     />
-                </Grid>
-                <Grid item xs={12}>
+
                     <LineData title="Self bonded:" value={`${formatNumber(data.validator?.selfBond)} ${data.validator?.denom || 'token'}`} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} md={6}>
                     <LineData title="Token price:" value={`$${formatNumber(data.validator?.price)}`} />
-                </Grid>
-                <Grid item xs={12}>
+
                     <LineData title="Uptime:" value={`${data.validator?.uptime}%`} />
-                </Grid>
-                <Grid item xs={12}>
+
                     <LineData title="Commission:" value={`${data.validator?.commission?.rate || '---'}%`} />
-                </Grid>
-                <Grid item xs={12}>
+
                     <LineData title="APR:" value={`${formatNumber(data.validator?.apr, { fractionDigits: 2 })}%`} />
                 </Grid>
             </Grid>
