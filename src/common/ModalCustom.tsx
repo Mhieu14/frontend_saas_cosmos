@@ -1,9 +1,9 @@
 import { Clear } from '@mui/icons-material';
-import { Dialog, DialogTitle, IconButton, Typography } from '@mui/material';
+import { Dialog, DialogTitle, Typography } from '@mui/material';
 import { useModalContext } from 'src/contexts/modal-context';
 
 export default function ModalCustom() {
-    const { open, closeModal, content, title } = useModalContext();
+    const { open, closeModal, content, title, maxWidth } = useModalContext();
     function closeDialog() {
         closeModal();
     }
@@ -13,7 +13,7 @@ export default function ModalCustom() {
             open={open}
             onClose={closeDialog}
             fullWidth
-            maxWidth="xsm"
+            maxWidth={maxWidth}
             sx={(theme) => ({
                 [theme.breakpoints.down('xsm')]: { '& .MuiPaper-root': { maxWidth: '100%!important', margin: '0!important', width: 'calc(100% - 16px)' } },
             })}
@@ -22,9 +22,7 @@ export default function ModalCustom() {
                 <Typography variant="h5" color={'text.primary'}>
                     {title}
                 </Typography>
-                {/* <IconButton > */}
-                <Clear onClick={closeDialog} sx={{ color: '#595F5A', fontSize: '30px', cursor: 'pointer' }} />
-                {/* </IconButton> */}
+                <Clear onClick={closeDialog} sx={{ color: 'text.secondary', fontSize: '30px', cursor: 'pointer' }} />
             </DialogTitle>
             {content}
         </Dialog>

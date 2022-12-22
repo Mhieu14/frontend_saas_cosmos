@@ -148,7 +148,7 @@ export function getThemeConfig(mode: THEME_MODE): ThemeOptions {
             },
             text: {
                 primary: getColor('#e7e7e7', '#131C23'),
-                secondary: getColor('#FFFFFFA6', '#a1a1a1'),
+                secondary: getColor('#FFFFFFA6', '#747474'),
             },
             action: {
                 selected: getColor('#021C39', '#E6EBF4'),

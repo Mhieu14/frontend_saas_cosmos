@@ -1,13 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
 import { rootReducer, RootState } from './rootReducer';
 import { useDispatch } from 'react-redux';
 
-const middleware = [thunk];
-
 const store = configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middleware),
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                // Ignore these action types
+                ignoredActions: ['your/action/type'],
+                // Ignore these field paths in all actions
+                ignoredActionPaths: ['meta.arg', 'payload.timestamp'],
+                // Ignore these paths in the state
+                ignoredPaths: ['items.dates'],
+            },
+        }),
     devTools: process.env.NODE_ENV !== 'production',
 });
 

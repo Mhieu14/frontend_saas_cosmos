@@ -22,9 +22,27 @@ export interface IDataNodeDetail {
     syncing: boolean;
     createdAt: string;
     publicKey: string;
-    mode: string;
+    mode: 'Validator' | 'Full Node';
     canCreateValidator: boolean;
     chainInfo: IChainConfig;
+    chainStakeInfo: {
+        apr: string | number;
+        name: string;
+        price: number;
+        tokenBonded: number;
+        totalToken: number;
+    };
+    monitoring: {
+        cpuCount: number;
+        cpuPercentage: number;
+        ramPercentage: number;
+        ramTotal: string;
+        ramUsed: string;
+    };
+    endpoint: {
+        lcd: string;
+        rpc: string;
+    };
     project: {
         projectId: string;
         status: string;
@@ -35,6 +53,12 @@ export interface IDataNodeDetail {
     cloudProvider: {
         id: string;
         name: string;
+    };
+    syncInfo: {
+        lastestHeight: string;
+        lastestTime: string;
+        earliestHeight: string;
+        earliestTime: string;
     };
     validator: {
         validatorAddress: string;

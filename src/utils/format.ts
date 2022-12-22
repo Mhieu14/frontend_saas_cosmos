@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormatNumberOptions } from 'src/global.config';
 import { isNumeric } from '.';
+import { format as fd, compareAsc } from 'date-fns';
 
 /**
  *
@@ -70,4 +71,10 @@ export function numberWithCommas(x: number | string, delimiter = ','): string {
         out += '.' + decimalPart;
     }
     return out;
+}
+
+type TypeDateFormat = 'hh:mm b, d/M/yyyy';
+export function formatDate(_date: string | number | Date, type: TypeDateFormat): string {
+    const date = new Date(_date);
+    return fd(date, type);
 }
