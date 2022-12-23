@@ -1,6 +1,5 @@
-import { Alert, AlertTitle, Box, Button, FormControl, Grid, InputAdornment, InputLabel, OutlinedInput, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { IDataNodeDetail } from 'src/api/nodes/type';
-import { BoxWrapper } from 'src/common/BoxWrapper';
 import ValidatorInfo from './ValidatorInfo';
 type Props = {
     data: IDataNodeDetail;

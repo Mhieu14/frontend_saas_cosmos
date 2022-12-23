@@ -149,7 +149,7 @@ export default function DetailNode() {
                             <Skeleton variant="rounded" animation="wave" width={'100%'} height={'100%'} sx={{ mt: 1, minHeight: '135px' }} />
                         ) : (
                             <>
-                                {data.status == 'CREATED' ? (
+                                {data.status === 'CREATED' ? (
                                     <>
                                         <BoxWrapper sx={{ bgcolor: 'background.paper', boxShadow: 3 }}>
                                             <Typography variant="h4" color={'text.primary'} sx={{ mb: 2 }}>
@@ -174,7 +174,7 @@ export default function DetailNode() {
                             <Skeleton variant="rounded" animation="wave" width={'100%'} height={'100%'} sx={{ mt: 1, minHeight: '135px' }} />
                         ) : (
                             <>
-                                {data.status == 'CREATED' ? (
+                                {data.status === 'CREATED' ? (
                                     <>
                                         <BoxWrapper sx={{ bgcolor: 'background.paper', boxShadow: 3, height: '100%' }}>
                                             <Typography variant="h4" color={'text.primary'} sx={{ mb: 2 }}>
@@ -197,7 +197,7 @@ export default function DetailNode() {
                             <Skeleton variant="rounded" animation="wave" width={'100%'} height={'100%'} sx={{ mt: 1, minHeight: '135px' }} />
                         ) : (
                             <>
-                                {data.status == 'CREATED' ? (
+                                {data.status === 'CREATED' ? (
                                     <>
                                         <BoxWrapper sx={{ bgcolor: 'background.paper', boxShadow: 3, height: '100%' }}>
                                             <Typography variant="h4" color={'text.primary'} sx={{ mb: 2 }}>

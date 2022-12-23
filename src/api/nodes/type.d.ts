@@ -1,6 +1,7 @@
-import { NodeStatusType } from 'src/global.config';
 import { IChainConfig } from 'src/redux-toolkit/slice/walletSilce/type';
 
+// TODO: write type golbal for current app
+export type NodeStatusType = 'CREATE_PENDING' | 'CREATE_FAIL' | 'CREATED' | 'DELETE_PENDING' | 'DELETE_FAIL' | 'DELETED' | 'CREATE_RETRYING' | 'UNKNOW' | 'SYNCING';
 export interface IDataCreateNode {
     nodeName: string;
     network: string;

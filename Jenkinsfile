@@ -22,13 +22,13 @@ pipeline {
 
         // Staging server information
         STAGING_VM_IP = "206.189.35.217"
-        STAGING_URL = "https://staging.vchain.zone"
+        STAGING_URL = "https://app-staging.vchain.zone"
         STAGING_DOCKER_PORT = 3000
         STAGING_DOCKER_BIND_PORT = 3001
 
         // Production server information
         PRODUCTION_VM_IP = "178.128.87.129"
-        PRODUCTION_URL = "https://vchain.zone"
+        PRODUCTION_URL = "https://app.vchain.zone"
         PRODUCTION_DOCKER_PORT = 3000
         PRODUCTION_DOCKER_BIND_PORT = 3001
 

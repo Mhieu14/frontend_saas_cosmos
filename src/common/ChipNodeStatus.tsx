@@ -1,5 +1,5 @@
 import { Chip, SxProps, Theme } from '@mui/material';
-import { NodeStatusType } from 'src/global.config';
+import { NodeStatusType } from 'src/api/nodes/type';
 
 type Props = {
     status: NodeStatusType;

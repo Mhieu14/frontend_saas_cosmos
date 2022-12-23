@@ -1,6 +1,5 @@
-import { Alert, Box, Button, DialogContent, TextField, Typography } from '@mui/material';
+import { Alert, Box, DialogContent, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
-import { BoxWrapper } from 'src/common/BoxWrapper';
 import LoadingButton from 'src/common/LoadingButton/LoadingButton';
 import useNotifier from 'src/hooks/useNotifier';
 import { useWalletSlice } from 'src/redux-toolkit/slice/walletSilce/walletSlice';
