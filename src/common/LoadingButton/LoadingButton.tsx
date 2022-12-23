@@ -1,17 +1,15 @@
 import { Spoke } from '@mui/icons-material';
-import { Box, Button, ButtonProps } from '@mui/material';
+import { Button, ButtonProps } from '@mui/material';
 import { spinInfinity } from 'src/assets/animations/loading_spin';
 
-export default function LoadingButton(props: ButtonProps) {
+interface LoadingBtnProps extends ButtonProps {
+    onlyIconLoading?: boolean;
+}
+
+export default function LoadingButton(props: LoadingBtnProps) {
     return (
-        <Button {...props}>
-            {props.disabled ? (
-                <Box component={'span'} sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Spoke sx={{ animation: spinInfinity, transformOrigin: 'center', mr: 1 }} /> Loading...
-                </Box>
-            ) : (
-                props.children
-            )}
+        <Button {...props} startIcon={props.disabled ? <Spoke sx={{ animation: spinInfinity, transformOrigin: 'center' }} /> : props.startIcon}>
+            {props.disabled ? props.onlyIconLoading ? <></> : 'Loading...' : props.children}
         </Button>
     );
 }

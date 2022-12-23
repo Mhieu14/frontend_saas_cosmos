@@ -84,7 +84,7 @@ export default function DetailNode() {
                     )}
                 </Typography>
             </Box>
-            <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'start', flexWrap: 'wrap' }}>
+            <BoxWrapper sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'start', flexWrap: 'wrap', bgcolor: 'background.paper' }}>
                 <Box>
                     {loading ? (
                         <Skeleton variant="rounded" animation="wave" width={120} height={35} sx={{ mb: 1 }} />
@@ -118,12 +118,12 @@ export default function DetailNode() {
                         color="success"
                         sx={{ color: 'white', marginLeft: 'auto' }}
                         startIcon={<DataSaverOnOutlined />}
-                        onClick={() => openModal('Delegate', <ModalDelegate />)}
+                        onClick={() => openModal('Delegate', <ModalDelegate operatorAddress={data.operatorAddress || ''} tokenApr={data.chainStakeInfo.apr} tokenPrice={data.chainStakeInfo.price} />)}
                     >
                         Delegate
                     </Button>
                 ) : null}
-            </Box>
+            </BoxWrapper>
             {data.validator ? <Delegate data={data} /> : null}
             <Box sx={{ mt: 2 }}>
                 <Grid container spacing={3}>
