@@ -30,6 +30,30 @@ export const nodeService = {
                 id: node.cloud_provider.id,
                 name: node.cloud_provider.name,
             },
+            monitoring: {
+                cpuCount: node.monitoring?.cpu_count || 0,
+                cpuPercentage: node.monitoring?.cpu_percentage || 0,
+                ramPercentage: node.monitoring?.ram_percentage || 0,
+                ramTotal: node.monitoring?.ram_total || '---',
+                ramUsed: node.monitoring?.ram_used || '---',
+            },
+            endpoint: {
+                lcd: node.endpoint?.lcd || '---',
+                rpc: node.endpoint?.rpc || '---',
+            },
+            chainStakeInfo: {
+                apr: node.chain_stake_info?.apr || 0,
+                name: node.chain_stake_info?.name || '---',
+                price: node.chain_stake_info?.price || 0,
+                tokenBonded: node.chain_stake_info?.tokens_bonded || 0,
+                totalToken: node.chain_stake_info?.tokens_total || 0,
+            },
+            syncInfo: {
+                earliestHeight: node.sync_info?.earliest_block_height || '---',
+                earliestTime: node.sync_info?.earliest_block_time || '',
+                lastestHeight: node.sync_info?.latest_block_height || '---',
+                lastestTime: node.sync_info?.latest_block_time || '',
+            },
             operatorAddress: node.validator_info?.operatorAddress || '',
             validator: node.validator
                 ? {

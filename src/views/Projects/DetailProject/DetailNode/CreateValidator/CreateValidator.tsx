@@ -1,4 +1,4 @@
-import { Alert, Box, Button, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, DialogContent, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { BoxWrapper } from 'src/common/BoxWrapper';
 import LoadingButton from 'src/common/LoadingButton/LoadingButton';
@@ -78,8 +78,8 @@ export default function CreateValidator({ nodeId, nodeName, nodePublicKey, updat
     }
 
     return (
-        <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3, boxShadow: 3 }}>
-            <Alert severity="info" sx={{ justifyContent: 'center' }}>
+        <DialogContent>
+            <Alert severity="info" sx={{ justifyContent: 'center' }} variant="outlined">
                 <Typography sx={{ fontWeight: '500' }}>You need to stake to this node become a validator</Typography>
             </Alert>
             <Typography variant="h5" sx={{ my: 2 }}>
@@ -125,6 +125,6 @@ export default function CreateValidator({ nodeId, nodeName, nodePublicKey, updat
                     Create validator
                 </LoadingButton>
             </Box>
-        </BoxWrapper>
+        </DialogContent>
     );
 }

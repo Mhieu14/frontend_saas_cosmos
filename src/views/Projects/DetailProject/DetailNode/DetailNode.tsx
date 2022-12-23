@@ -1,5 +1,5 @@
 import { DataSaverOnOutlined, KeyboardDoubleArrowUp, NavigateNext } from '@mui/icons-material';
-import { Box, Breadcrumbs, Button, Chip, Grid, Skeleton, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, Chip, Grid, Skeleton, Tooltip, Typography } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import { BoxWrapper } from 'src/common/BoxWrapper';
 import CreateValidator from './CreateValidator/CreateValidator';
@@ -12,20 +12,21 @@ import ChipNodeStatus from 'src/common/ChipNodeStatus';
 import { useAppDispatch } from 'src/redux-toolkit/stores';
 import { useWalletSlice } from 'src/redux-toolkit/slice/walletSilce/walletSlice';
 import { imagePath } from 'src/constants/ImagePath';
+import { useModalContext } from 'src/contexts/modal-context';
+import ModalDelegate from './Delegate/ModalDelegate';
+import LineData from 'src/common/LineData';
+import { formatDate } from 'src/utils/format';
 
 export default function DetailNode() {
     const { projectId, nodeId } = useParams();
     const [loading, setLoading] = useState<boolean>(true);
-    const {
-        state: { address, chainConnectedInfo },
-    } = useWalletSlice();
+    const { address, chainConnectedInfo } = useWalletSlice().state;
     const [data, setData] = useState<IDataNodeDetail>({} as IDataNodeDetail);
     const notifier = useNotifier();
+    const { openModal } = useModalContext();
     const { notifyError } = notifier;
     const dispatch = useAppDispatch();
-    const {
-        action: { setChainConnectedInfo, connectWallet },
-    } = useWalletSlice();
+    const { setChainConnectedInfo, connectWallet } = useWalletSlice().action;
 
     async function getNode(): Promise<boolean> {
         try {
@@ -86,13 +87,19 @@ export default function DetailNode() {
             <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'start', flexWrap: 'wrap' }}>
                 <Box>
                     {loading ? (
-                        <Skeleton variant="rounded" animation="wave" width={120} height={35} sx={{ mr: 1 }} />
+                        <Skeleton variant="rounded" animation="wave" width={120} height={35} sx={{ mb: 1 }} />
                     ) : (
-                        <Typography variant="h3" sx={{ mr: 1 }}>
+                        <Typography variant="h3" sx={{ mb: 1 }}>
                             {data.nodeName || '---'}
                         </Typography>
                     )}
-                    <ChipNodeStatus status={data.status} />
+                    <Box sx={{ mb: 1 }}>
+                        <ChipNodeStatus status={data.status} sx={{ mr: 1 }} />
+                        <Chip variant="filled" color={data.mode === 'Full Node' ? 'secondary' : 'info'} label={data.mode || 'Loading...'} size="small" sx={{ mr: 1 }} />
+                        <Tooltip title="Cloud Provider" placement="right">
+                            <Chip size="small" label={data.cloudProvider?.name || 'Loading...'} />
+                        </Tooltip>
+                    </Box>
                 </Box>
                 {data.canCreateValidator ? (
                     <Button
@@ -100,7 +107,7 @@ export default function DetailNode() {
                         color="success"
                         sx={{ color: 'white', marginLeft: 'auto' }}
                         startIcon={<KeyboardDoubleArrowUp />}
-                        // onClick={() => openModal('Add Node', <ModalAddNode updateData={getProject} projectId={projectId || ''} />)}
+                        onClick={() => openModal('Upgrade to validator', <CreateValidator nodeId={nodeId || ''} nodeName={data.nodeName} nodePublicKey={data.publicKey} updateData={getNode} />)}
                     >
                         Upgrade
                     </Button>
@@ -111,78 +118,121 @@ export default function DetailNode() {
                         color="success"
                         sx={{ color: 'white', marginLeft: 'auto' }}
                         startIcon={<DataSaverOnOutlined />}
-                        // onClick={() => openModal('Add Node', <ModalAddNode updateData={getProject} projectId={projectId || ''} />)}
+                        onClick={() => openModal('Delegate', <ModalDelegate />)}
                     >
                         Delegate
                     </Button>
                 ) : null}
             </Box>
-            <BoxWrapper sx={{ mt: 2, bgcolor: 'background.paper', boxShadow: 3 }}>
-                {/* <Typography variant="body1" color="text.secondary" sx={{ mr: 1 }}>
-                    Detail node
-                </Typography> */}
-
-                <Box sx={{ mt: 3 }}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={4}>
-                            <Box>
-                                <Typography variant="body1" color={'text.secondary'}>
-                                    Network
-                                </Typography>
-                                {loading ? (
-                                    <Skeleton variant="rounded" animation="wave" width={120} height={24} sx={{ mt: 1 }} />
-                                ) : (
-                                    <Typography variant="h5" color={'text.primary'} sx={{ mt: 1 }}>
-                                        {data.network}
-                                    </Typography>
-                                )}
-                            </Box>
-                        </Grid>
-                        <Grid item xs={6} sm={3} sx={{ borderLeft: { xs: 'none', xsm: '1px solid' }, borderColor: { xsm: 'divider' } }}>
-                            <Box>
-                                <Typography variant="body1" color={'text.secondary'}>
-                                    Mode
-                                </Typography>
-                                {loading ? (
-                                    <Skeleton variant="rounded" animation="wave" width={120} height={24} sx={{ mt: 1 }} />
-                                ) : (
-                                    <Typography variant="h5" color={'text.primary'} sx={{ mt: 1 }}>
-                                        {data.mode}
-                                    </Typography>
-                                )}
-                            </Box>
-                        </Grid>
-                        <Grid item xs={6} sm={3} sx={{ borderLeft: '1px solid', borderColor: 'divider' }}>
-                            <Box>
-                                <Typography variant="body1" color={'text.secondary'}>
-                                    Hosting
-                                </Typography>
-                                {loading ? (
-                                    <Skeleton variant="rounded" animation="wave" width={120} height={24} sx={{ mt: 1 }} />
-                                ) : (
-                                    <Typography variant="h5" color={'text.primary'} sx={{ mt: 1 }}>
-                                        {data.cloudProvider?.name}
-                                    </Typography>
-                                )}
-                            </Box>
-                        </Grid>
+            {data.validator ? <Delegate data={data} /> : null}
+            <Box sx={{ mt: 2 }}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} xsm={6} lg={4}>
+                        <BoxWrapper sx={{ bgcolor: 'background.paper', boxShadow: 3 }}>
+                            <Typography variant="h4" color={'text.primary'} sx={{ mb: 2 }}>
+                                Network
+                            </Typography>
+                            {loading ? (
+                                <Skeleton variant="rounded" animation="wave" width={'100%'} height={124} sx={{ mt: 1 }} />
+                            ) : (
+                                <Box>
+                                    <LineData title="Name:" sx={{ mt: 1.5 }} value={data.chainStakeInfo.name} />
+                                    <LineData title="Bonded Tokens:" sx={{ mt: 1.5 }} value={`${data.chainStakeInfo.tokenBonded} / ${data.chainStakeInfo.totalToken}`} />
+                                    <LineData title="Staking APR:" sx={{ mt: 1.5 }} value={`${data.chainStakeInfo.apr}`} />
+                                    <LineData title="Token price:" sx={{ mt: 1.5 }} value={`$${data.chainStakeInfo.price}`} />
+                                </Box>
+                            )}
+                        </BoxWrapper>
                     </Grid>
-                </Box>
-            </BoxWrapper>
+                    <Grid item xs={12} xsm={6} lg={4}>
+                        {loading ? (
+                            <Skeleton variant="rounded" animation="wave" width={'100%'} height={'100%'} sx={{ mt: 1, minHeight: '135px' }} />
+                        ) : (
+                            <>
+                                {data.status == 'CREATED' ? (
+                                    <>
+                                        <BoxWrapper sx={{ bgcolor: 'background.paper', boxShadow: 3 }}>
+                                            <Typography variant="h4" color={'text.primary'} sx={{ mb: 2 }}>
+                                                Monitoring
+                                            </Typography>
+                                            <Box>
+                                                <LineData title="CPU:" sx={{ mt: 1.5 }} value={`${data.monitoring.cpuPercentage}%`} />
+                                                <LineData title="RAM:" sx={{ mt: 1.5 }} value={`${data.monitoring.ramPercentage}%`} />
+                                                <LineData title="Cores:" sx={{ mt: 1.5 }} value={`${data.monitoring.cpuCount}`} />
+                                                <LineData title="Total ram:" sx={{ mt: 1.5 }} value={`${data.monitoring.ramTotal}`} />
+                                            </Box>
+                                        </BoxWrapper>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                            </>
+                        )}
+                    </Grid>
+                    <Grid item xs={12} xsm={6} lg={4}>
+                        {loading ? (
+                            <Skeleton variant="rounded" animation="wave" width={'100%'} height={'100%'} sx={{ mt: 1, minHeight: '135px' }} />
+                        ) : (
+                            <>
+                                {data.status == 'CREATED' ? (
+                                    <>
+                                        <BoxWrapper sx={{ bgcolor: 'background.paper', boxShadow: 3, height: '100%' }}>
+                                            <Typography variant="h4" color={'text.primary'} sx={{ mb: 2 }}>
+                                                Endpoint
+                                            </Typography>
+                                            <Box>
+                                                <LineData title="LCD:" sx={{ mt: 1.5 }} value={`${data.endpoint.lcd}`} />
+                                                <LineData title="RPC:" sx={{ mt: 1.5 }} value={`${data.endpoint.rpc}`} />
+                                            </Box>
+                                        </BoxWrapper>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                            </>
+                        )}
+                    </Grid>
+                    <Grid item xs={12} xsm={6} lg={4}>
+                        {loading ? (
+                            <Skeleton variant="rounded" animation="wave" width={'100%'} height={'100%'} sx={{ mt: 1, minHeight: '135px' }} />
+                        ) : (
+                            <>
+                                {data.status == 'CREATED' ? (
+                                    <>
+                                        <BoxWrapper sx={{ bgcolor: 'background.paper', boxShadow: 3, height: '100%' }}>
+                                            <Typography variant="h4" color={'text.primary'} sx={{ mb: 2 }}>
+                                                Sync
+                                            </Typography>
+                                            <Box>
+                                                <LineData title="Status:" sx={{ mt: 1.5 }} value={`Synced`} />
+                                                <LineData title="Lastest Height:" sx={{ mt: 1.5 }} value={`${data.syncInfo.lastestHeight}`} />
+                                                <LineData title="Lastest Time:" sx={{ mt: 1.5 }} value={`${formatDate(data.syncInfo.lastestTime, 'hh:mm b, d/M/yyyy')}`} />
+                                                <LineData title="Earliest Height:" sx={{ mt: 1.5 }} value={`${data.syncInfo.earliestHeight}`} />
+                                                <LineData title="Earliest Time:" sx={{ mt: 1.5 }} value={`${formatDate(data.syncInfo.earliestTime, 'hh:mm b, d/M/yyyy')}`} />
+                                            </Box>
+                                        </BoxWrapper>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                            </>
+                        )}
+                    </Grid>
+                </Grid>
+            </Box>
+
             {loading ? (
                 <>
                     <Skeleton variant="rounded" animation="wave" height={300} width="100%" sx={{ mt: 3 }} />
                 </>
             ) : (
                 <>
-                    {data.canCreateValidator ? <CreateValidator nodeId={nodeId || ''} nodeName={data.nodeName} nodePublicKey={data.publicKey} updateData={getNode} /> : null}
                     {data.syncing ? (
                         <BoxWrapper sx={{ bgcolor: 'background.paper', mt: 3, boxShadow: 3, textAlign: 'center' }}>
                             <img src={imagePath.DATA_SYNC} alt="Node is syncing" style={{ margin: '24px auto', display: 'block', width: '300px' }} />
                             Node is syncing! This process take a long time!
                         </BoxWrapper>
                     ) : null}
-                    {data.validator ? <Delegate data={data} /> : null}
                 </>
             )}
         </Box>

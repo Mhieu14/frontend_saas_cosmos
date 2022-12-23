@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { IntegrationInstructions, Share } from '@mui/icons-material';
+import { CableOutlined, IntegrationInstructions, Share } from '@mui/icons-material';
 
 type MENU = {
     url: string;
@@ -14,8 +14,13 @@ export const menu: MENU[] = [
         icon: <IntegrationInstructions />,
     },
     {
-        url: '/#',
-        title: 'Networks',
+        url: '/endpoints',
+        title: 'Endpoints',
         icon: <Share />,
+    },
+    {
+        url: '/#',
+        title: 'API',
+        icon: <CableOutlined />,
     },
 ];
