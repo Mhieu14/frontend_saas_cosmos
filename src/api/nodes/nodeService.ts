@@ -73,6 +73,7 @@ export const nodeService = {
                       totalNotBondedTokens: node.validator_info?.totalNotBondedTokens || 0,
                       votingPower: node.validator_info?.votingPower || 0,
                       votingPercentage: node.validator_info?.votingPercentage || 0,
+                      jailed: node.validator_info?.jailed || false,
                   }
                 : null,
         };

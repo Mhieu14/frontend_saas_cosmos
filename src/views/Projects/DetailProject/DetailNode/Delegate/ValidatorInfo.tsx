@@ -28,57 +28,53 @@ export default function ValidatorInfo({ data }: Props) {
             <Typography variant="h4" color={'text.primary'} sx={{ mb: 0 }}>
                 Validator information
             </Typography>
-            <Grid container rowSpacing={3} columnSpacing={8}>
-                <Grid item xs={12} md={6}>
-                    <LineData title="Chain ID:" value={data.chainInfo?.chainId || '---'} />
 
-                    <LineData
-                        title="Validator address:"
-                        value={
-                            data.validator?.validatorAddress ? (
-                                <>
-                                    <CopyTextBtn text={data.validator.validatorAddress} />
-                                    {formatAddress(data.validator.validatorAddress, 6, 6)}
-                                </>
-                            ) : (
-                                '---'
-                            )
-                        }
-                    />
+            <LineData title="Chain ID:" value={data.chainInfo?.chainId || '---'} />
 
-                    <LineData
-                        title="Operator address:"
-                        value={
-                            data.operatorAddress ? (
-                                <>
-                                    <CopyTextBtn text={data.operatorAddress} />
-                                    {formatAddress(data.operatorAddress, 6, 6)}
-                                </>
-                            ) : (
-                                '---'
-                            )
-                        }
-                    />
+            <LineData
+                title="Validator address:"
+                value={
+                    data.validator?.validatorAddress ? (
+                        <>
+                            <CopyTextBtn text={data.validator.validatorAddress} />
+                            {formatAddress(data.validator.validatorAddress, 6, 6)}
+                        </>
+                    ) : (
+                        '---'
+                    )
+                }
+            />
 
-                    <LineData
-                        title="Voting power:"
-                        value={`${formatNumber(data.validator?.votingPercentage || 0, { fractionDigits: 6 })}% 
+            <LineData
+                title="Operator address:"
+                value={
+                    data.operatorAddress ? (
+                        <>
+                            <CopyTextBtn text={data.operatorAddress} />
+                            {formatAddress(data.operatorAddress, 6, 6)}
+                        </>
+                    ) : (
+                        '---'
+                    )
+                }
+            />
+
+            <LineData
+                title="Voting power:"
+                value={`${formatNumber(data.validator?.votingPercentage || 0, { fractionDigits: 6 })}% 
                                 (${formatNumber(data.validator?.votingPower, { fractionDigits: 2 })} 
                                 ${data.validator?.denom || 'token'})`}
-                    />
+            />
 
-                    <LineData title="Self bonded:" value={`${formatNumber(data.validator?.selfBond)} ${data.validator?.denom || 'token'}`} />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <LineData title="Token price:" value={`$${formatNumber(data.validator?.price)}`} />
+            <LineData title="Self bonded:" value={`${formatNumber(data.validator?.selfBond)} ${data.validator?.denom || 'token'}`} />
 
-                    <LineData title="Uptime:" value={`${data.validator?.uptime}%`} />
+            <LineData title="Jailed:" value={`$${formatNumber(data.validator?.jailed)}`} />
 
-                    <LineData title="Commission:" value={`${data.validator?.commission?.rate || '---'}%`} />
+            <LineData title="Commission rate:" value={`${data.validator?.commission?.rate || '---'}%`} />
 
-                    <LineData title="APR:" value={`${formatNumber(data.validator?.apr, { fractionDigits: 2 })}%`} />
-                </Grid>
-            </Grid>
+            <LineData title="Commission max rate:" value={`${data.validator?.commission?.maxRate || '---'}%`} />
+
+            <LineData title="Commission max change rate:" value={`${data.validator?.commission?.maxChangeRate || '---'}%`} />
         </BoxWrapper>
     );
 }
