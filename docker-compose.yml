@@ -9,7 +9,7 @@ services:
             dockerfile: ./Dockerfile
         command: yarn start
         ports:
-            - 5555:5555
+            - 5556:5555
         volumes:
             - .:/usr/src/app
             - /usr/src/app/node_modules
