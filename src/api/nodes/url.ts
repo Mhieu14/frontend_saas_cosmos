@@ -4,4 +4,5 @@ export const url = {
     createNode: `${BASE_VALIDATOR_SERVICE}/nodes`,
     getNode: (nodeId: string) => `${BASE_VALIDATOR_SERVICE}/nodes/${nodeId}`,
     createValidator: (nodeId: string) => `${BASE_VALIDATOR_SERVICE}/nodes/${nodeId}/add_validator`,
+    deleteNode: (nodeId: string) => `${BASE_VALIDATOR_SERVICE}/nodes/${nodeId}`,
 };

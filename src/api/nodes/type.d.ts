@@ -78,6 +78,7 @@ export interface IDataNodeDetail {
         totalNotBondedTokens: number;
         votingPercentage: number;
         votingPower: number;
+        jailed: boolean
     } | null;
     operatorAddress: string | null;
 }

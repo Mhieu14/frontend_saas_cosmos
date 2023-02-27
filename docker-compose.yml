@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+    dev:
+        container_name: frontend
+        image: frontend:1.0.0
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        command: yarn start
+        ports:
+            - 5555:5555
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        restart: unless-stopped

@@ -1,6 +1,7 @@
 import { DataSaverOnOutlined, KeyboardDoubleArrowUp, NavigateNext } from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, Breadcrumbs, Button, Chip, Grid, Skeleton, Tooltip, Typography } from '@mui/material';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BoxWrapper } from 'src/common/BoxWrapper';
 import CreateValidator from './CreateValidator/CreateValidator';
 import Delegate from './Delegate/Delegate';
@@ -27,6 +28,19 @@ export default function DetailNode() {
     const { notifyError } = notifier;
     const dispatch = useAppDispatch();
     const { setChainConnectedInfo, connectWallet } = useWalletSlice().action;
+    const navigate = useNavigate()
+
+    async function deleteNode() {
+        try {
+            if (window.confirm("Press a button!") == true) {
+                await nodeService.deleteNode(nodeId || '');
+                window.location.href = `/projects/${projectId}`;
+            }
+        } catch (err) {
+            console.log(err);
+            notifyError((err as Error).message || '');
+        }
+    } 
 
     async function getNode(): Promise<boolean> {
         try {
@@ -101,6 +115,16 @@ export default function DetailNode() {
                         </Tooltip>
                     </Box>
                 </Box>
+                <Box>
+                <Button
+                        variant="contained"
+                        color="error"
+                        sx={{ color: 'white', marginLeft: 'auto', mr: 1 }}
+                        startIcon={<DeleteIcon />}
+                        onClick={deleteNode}
+                    >
+                        Delete
+                </Button>
                 {data.canCreateValidator ? (
                     <Button
                         variant="contained"
@@ -123,6 +147,7 @@ export default function DetailNode() {
                         Delegate
                     </Button>
                 ) : null}
+                </Box>
             </BoxWrapper>
             {data.validator ? <Delegate data={data} /> : null}
             <Box sx={{ mt: 2 }}>

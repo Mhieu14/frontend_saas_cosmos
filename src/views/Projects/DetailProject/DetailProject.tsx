@@ -1,6 +1,7 @@
 import { Add, NavigateNext } from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, Breadcrumbs, Button, Divider, Grid, Skeleton, Typography } from '@mui/material';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Table } from 'src/common/Table/Table';
 import { TableHeader } from 'src/common/Table/TableHeader';
 import { useModalContext } from 'src/contexts/modal-context';
@@ -29,6 +30,19 @@ export default function DetailProject() {
     const [loading, setLoading] = useState<boolean>(true);
     const [data, setData] = useState<IDetailProjectData>(initData);
     const { notifyError } = useNotifier();
+    const navigate = useNavigate()
+
+    async function deleteProject() {
+        try {
+            if (window.confirm("Press a button!") == true) {
+                await projectService.deleteProject(projectId || '');
+                window.location.href = `/projects`;
+            }
+        } catch (err) {
+            console.log(err);
+            notifyError((err as Error).message || '');
+        }
+    } 
 
     async function getProject() {
         try {
@@ -63,14 +77,25 @@ export default function DetailProject() {
             </Box>
             <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
                 {loading ? <Skeleton variant="text" animation="wave" width={150} height={24} /> : <Typography variant="h3">{data.name}</Typography>}
-                <Button
-                    variant="contained"
-                    color="success"
-                    sx={{ color: 'white', marginLeft: 'auto' }}
-                    onClick={() => openModal('Add Node', <ModalAddNode updateData={getProject} projectId={projectId || ''} />)}
-                >
-                    <Add /> Add Node
-                </Button>
+                <Box>
+                    <Button
+                            variant="contained"
+                            color="error"
+                            sx={{ color: 'white', marginLeft: 'auto', mr: 1 }}
+                            startIcon={<DeleteIcon />}
+                            onClick={deleteProject}
+                        >
+                            Delete
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="success"
+                        sx={{ color: 'white', marginLeft: 'auto' }}
+                        onClick={() => openModal('Add Node', <ModalAddNode updateData={getProject} projectId={projectId || ''} />)}
+                    >
+                        <Add /> Add Node
+                    </Button>
+                </Box>
             </Box>
             <Typography color={'text.secondary'} sx={{ mt: 1 }}>
                 {data.description}

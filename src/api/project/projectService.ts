@@ -45,4 +45,9 @@ export const projectService = {
             }),
         };
     },
+    deleteProject: async (projectId: string): Promise<any> => {
+        const response = await callApiProjects.deleteProject(projectId);
+        console.log('deleteProject', response.data);
+        return;
+    }
 };

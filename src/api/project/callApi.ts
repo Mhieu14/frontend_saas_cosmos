@@ -13,6 +13,6 @@ export const callApiProjects = {
         return axios.get(url.getProject(projectId));
     },
     deleteProject: (projectId: string) => {
-        return axios.delete(projectId);
+        return axios.delete(url.deleteProject(projectId));
     },
 };

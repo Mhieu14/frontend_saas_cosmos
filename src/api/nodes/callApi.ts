@@ -12,4 +12,7 @@ export const callApiNodes = {
     createValidator: (nodeId: string, dataPost: IDataCreateValidator) => {
         return axios.post(url.createValidator(nodeId), { validator_address: dataPost.validatorAddress, wallet_address: dataPost.walletAddress });
     },
+    deteleNode: (nodeId: string) => {
+        return axios.delete(url.deleteNode(nodeId))
+    }
 };

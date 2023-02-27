@@ -35,7 +35,7 @@ export default function Layout() {
                         <Provider store={store}>
                             <>
                                 <AutoFetchData />
-                                <Sidebar />
+                                {/* <Sidebar /> */}
                                 <Content />
                                 <ModalCustom />
                             </>

@@ -11,7 +11,8 @@ export default function Content() {
     const { sidebarWidth, breakPointLayout } = useLayoutContext();
 
     return (
-        <HeaderAndContentBox sx={{ marginLeft: breakPointLayout ? '0px' : sidebarWidth }}>
+        // <HeaderAndContentBox sx={{ marginLeft: breakPointLayout ? '0px' : sidebarWidth }}>
+        <HeaderAndContentBox>
             <Header />
             <MainContent />
         </HeaderAndContentBox>

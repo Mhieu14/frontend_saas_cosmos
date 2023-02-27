@@ -32,7 +32,7 @@ export default function ValidatorInfo({ data }: Props) {
                 <Grid item xs={12} md={6}>
                     <LineData title="Chain ID:" value={data.chainInfo?.chainId || '---'} />
 
-                    <LineData
+                    {/* <LineData
                         title="Validator address:"
                         value={
                             data.validator?.validatorAddress ? (
@@ -44,7 +44,7 @@ export default function ValidatorInfo({ data }: Props) {
                                 '---'
                             )
                         }
-                    />
+                    /> */}
 
                     <LineData
                         title="Operator address:"
@@ -72,11 +72,9 @@ export default function ValidatorInfo({ data }: Props) {
                 <Grid item xs={12} md={6}>
                     <LineData title="Token price:" value={`$${formatNumber(data.validator?.price)}`} />
 
-                    <LineData title="Uptime:" value={`${data.validator?.uptime}%`} />
-
                     <LineData title="Commission:" value={`${data.validator?.commission?.rate || '---'}%`} />
 
-                    <LineData title="APR:" value={`${formatNumber(data.validator?.apr, { fractionDigits: 2 })}%`} />
+                    <LineData title="Jailed:" value={`${data.validator?.jailed}`} />
                 </Grid>
             </Grid>
         </BoxWrapper>
