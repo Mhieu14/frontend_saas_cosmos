@@ -56,6 +56,7 @@ export interface IDataNodeDetail {
         name: string;
     };
     syncInfo: {
+        catchingUp: boolean;
         lastestHeight: string;
         lastestTime: string;
         earliestHeight: string;

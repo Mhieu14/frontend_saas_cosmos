@@ -49,6 +49,7 @@ export const nodeService = {
                 totalToken: node.chain_stake_info?.tokens_total || 0,
             },
             syncInfo: {
+                catchingUp: node.sync_info?.catching_up || false,
                 earliestHeight: node.sync_info?.earliest_block_height || '---',
                 earliestTime: node.sync_info?.earliest_block_time || '',
                 lastestHeight: node.sync_info?.latest_block_height || '---',

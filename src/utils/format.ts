@@ -75,6 +75,11 @@ export function numberWithCommas(x: number | string, delimiter = ','): string {
 
 type TypeDateFormat = 'hh:mm b, d/M/yyyy';
 export function formatDate(_date: string | number | Date, type: TypeDateFormat): string {
-    const date = new Date(_date);
-    return fd(date, type);
+    try {
+        const date = new Date(_date);
+        const formatedDate = fd(date, type)
+        return formatedDate;
+    } catch (error) {
+        return '---';
+    }
 }

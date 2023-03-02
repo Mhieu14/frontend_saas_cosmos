@@ -229,7 +229,7 @@ export default function DetailNode() {
                                                 Sync
                                             </Typography>
                                             <Box>
-                                                <LineData title="Status:" sx={{ mt: 1.5 }} value={`Synced`} />
+                                                <LineData title="Status:" sx={{ mt: 1.5 }} value={`${data.syncInfo.catchingUp ? 'Syncing' : 'Synced'}`} />
                                                 <LineData title="Lastest Height:" sx={{ mt: 1.5 }} value={`${data.syncInfo.lastestHeight}`} />
                                                 <LineData title="Lastest Time:" sx={{ mt: 1.5 }} value={`${formatDate(data.syncInfo.lastestTime, 'hh:mm b, d/M/yyyy')}`} />
                                                 <LineData title="Earliest Height:" sx={{ mt: 1.5 }} value={`${data.syncInfo.earliestHeight}`} />
