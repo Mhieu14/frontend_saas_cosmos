@@ -83,7 +83,7 @@ export default function ModalDelegate({ tokenApr, tokenPrice, operatorAddress }:
                             />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Typography variant="body1" color="text.secondary">
                                 Daily earning
@@ -123,7 +123,7 @@ export default function ModalDelegate({ tokenApr, tokenPrice, operatorAddress }:
                                 </Typography>
                             </Box>
                         </Box>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12}>
                         <ButtonDelegate delegateF={delegateToken} />
                     </Grid>

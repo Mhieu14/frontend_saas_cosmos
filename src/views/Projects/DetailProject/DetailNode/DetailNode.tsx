@@ -16,7 +16,7 @@ import { imagePath } from 'src/constants/ImagePath';
 import { useModalContext } from 'src/contexts/modal-context';
 import ModalDelegate from './Delegate/ModalDelegate';
 import LineData from 'src/common/LineData';
-import { formatDate } from 'src/utils/format';
+import { formatDate, compactNumber } from 'src/utils/format';
 
 export default function DetailNode() {
     const { projectId, nodeId } = useParams();
@@ -45,6 +45,7 @@ export default function DetailNode() {
     async function getNode(): Promise<boolean> {
         try {
             const response = await nodeService.getNode(nodeId || '');
+            console.log(response.chainStakeInfo);
             setData(response);
             if (response.chainInfo) {
                 if (chainConnectedInfo.chainId != response.chainInfo.chainId || !address) {
@@ -162,7 +163,7 @@ export default function DetailNode() {
                             ) : (
                                 <Box>
                                     <LineData title="Name:" sx={{ mt: 1.5 }} value={data.chainStakeInfo.name} />
-                                    <LineData title="Bonded Tokens:" sx={{ mt: 1.5 }} value={`${data.chainStakeInfo.tokenBonded} / ${data.chainStakeInfo.totalToken}`} />
+                                    <LineData title="Bonded Tokens:" sx={{ mt: 1.5 }} value={`${compactNumber(data.chainStakeInfo.tokenBonded)} / ${compactNumber(data.chainStakeInfo.totalToken)}`} />
                                     <LineData title="Staking APR:" sx={{ mt: 1.5 }} value={`${data.chainStakeInfo.apr}`} />
                                     <LineData title="Token price:" sx={{ mt: 1.5 }} value={`$${data.chainStakeInfo.price}`} />
                                 </Box>
